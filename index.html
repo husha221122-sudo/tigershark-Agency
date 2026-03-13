@@ -1,20 +1,242 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiger Shark - Reclutamiento Oficial</title>
-    <meta property="og:title" content="Tiger Shark - Agencia Oficial de Creadores">
-<meta property="og:description" content="Agencia Top de Creadores. Comisión Alta, Apoyo Profesional 24/7, Protección Legal Completa. Únete a Tiger Shark hoy y maximiza tus ingresos como creador de contenido.">
+    <link rel="icon" href="logo.png" type="image/png">
+    <meta property="og:title" content="Tiger Shark - Agencia Oficial">
+<meta property="og:description" content="Agencia Top de Creadores. Comisión Alta, Apoyo Profesional 24/7, Protección Legal Completa.">
 <meta property="og:image" content="https://husha221122-sudo.github.io/Tiger-Shark-Agency/logo.png">
 <meta property="og:url" content="https://husha221122-sudo.github.io/Tiger-Shark-Agency/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tiger Shark - Agencia Oficial de Creadores">
-<meta name="twitter:description" content="Agencia Top de Creadores. Comisión Alta, Apoyo Profesional 24/7, Protección Legal Completa. Únete hoy y comienza a monetizar tu talento.">
+<meta name="twitter:title" content="Tiger Shark - Agencia Oficial">
+<meta name="twitter:description" content="Únete a Tiger Shark. Comisión Alta, Apoyo 24/7, Protección Legal.">
 <meta name="twitter:image" content="https://husha221122-sudo.github.io/Tiger-Shark-Agency/logo.png">
-<link rel="icon" href="logo.png" type="image/png">
     <style>
+#popup-overlay {
+            display:none;position:fixed;inset:0;z-index:10000;
+            background:rgba(0,0,0,0.75);backdrop-filter:blur(10px);
+            align-items:center;justify-content:center;padding:20px;
+        }
+        #popup-overlay.open { display:flex; }
+        #popup-box {
+            background:linear-gradient(135deg,rgba(5,15,30,0.98),rgba(8,20,38,0.98));
+            border:1px solid rgba(0,229,255,0.35);border-radius:24px;
+            width:100%;max-width:480px;padding:38px 34px 32px;
+            position:relative;
+            box-shadow:0 0 60px rgba(0,229,255,0.18),0 30px 80px rgba(0,0,0,0.6);
+            animation:popupIn .5s cubic-bezier(.16,1,.3,1) forwards;
+        }
+        @keyframes popupIn {
+            from{opacity:0;transform:scale(.88) translateY(30px)}
+            to{opacity:1;transform:scale(1) translateY(0)}
+        }
+        #popup-close {
+            position:absolute;top:16px;right:20px;
+            font-size:1.4rem;color:rgba(224,247,250,0.4);
+            cursor:pointer;transition:color .2s;background:none;border:none;line-height:1;
+        }
+        #popup-close:hover { color:#fff; }
+        .popup-badge {
+            display:inline-flex;align-items:center;gap:8px;
+            background:linear-gradient(135deg,rgba(255,215,64,0.15),rgba(255,100,0,0.1));
+            border:1px solid rgba(255,215,64,0.4);color:var(--gold);
+            font-size:.72rem;letter-spacing:3px;padding:5px 16px;border-radius:20px;margin-bottom:14px;
+        }
+        .popup-title {
+            font-size:1.55rem;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:2px;
+        }
+        .popup-title span { color:var(--gold); }
+        .popup-desc {
+            font-size:.875rem;color:rgba(224,247,250,0.65);line-height:1.75;margin-bottom:24px;
+        }
+        /* 活动预览小表格 */
+        .popup-preview {
+            background:rgba(0,0,0,0.3);border:1px solid rgba(255,215,64,0.2);
+            border-radius:14px;padding:16px 18px;margin-bottom:26px;
+        }
+        .popup-preview-title {
+            font-size:.72rem;letter-spacing:3px;color:rgba(255,215,64,0.7);
+            margin-bottom:12px;display:flex;align-items:center;gap:8px;
+        }
+        .popup-preview-title::after {
+            content:'';flex:1;height:1px;background:rgba(255,215,64,0.15);
+        }
+        .popup-preview-row {
+            display:flex;justify-content:space-between;align-items:center;
+            padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);
+            font-size:.82rem;
+        }
+        .popup-preview-row:last-child { border-bottom:none; }
+        .popup-preview-row .pr-left { color:rgba(224,247,250,0.75); }
+        .popup-preview-row .pr-right {
+            font-weight:700;color:var(--gold);
+            background:rgba(255,215,64,0.08);padding:2px 10px;border-radius:10px;
+            font-size:.78rem;
+        }
+        .popup-btn-wrap { display:flex;gap:12px; }
+        .popup-go-btn {
+            flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+            background:linear-gradient(135deg,var(--gold),#ff8f00);color:#000;
+            font-weight:800;font-size:.95rem;letter-spacing:1px;
+            border:none;border-radius:14px;padding:14px 20px;cursor:pointer;
+            transition:box-shadow .3s,transform .2s;
+        }
+        .popup-go-btn:hover {
+            box-shadow:0 0 30px rgba(255,215,64,0.5);transform:translateY(-2px);
+        }
+        .popup-skip-btn {
+            padding:14px 18px;border:1px solid rgba(224,247,250,0.15);
+            background:none;color:rgba(224,247,250,0.45);border-radius:14px;
+            cursor:pointer;font-size:.85rem;transition:all .3s;white-space:nowrap;
+        }
+        .popup-skip-btn:hover { border-color:rgba(224,247,250,0.35);color:rgba(224,247,250,0.75); }
+        /* ══════════════════════════════════════════
+           活动子页面 Activity Page
+        ══════════════════════════════════════════ */
+        #activity-page { display:none; }
+        #activity-page.active { display:block; }
+        /* 活动奖励表格框架 */
+        .activity-reward-frame {
+            background:rgba(5,15,25,0.6);backdrop-filter:blur(16px);
+            border:1px solid rgba(255,215,64,0.25);border-radius:20px;
+            overflow:hidden;margin-bottom:32px;
+        }
+        .activity-frame-header {
+            display:flex;align-items:center;gap:14px;padding:22px 28px;
+            border-bottom:1px solid rgba(255,215,64,0.12);
+            background:linear-gradient(135deg,rgba(255,215,64,0.07),rgba(255,100,0,0.04));
+        }
+        .activity-frame-icon {
+            width:44px;height:44px;border-radius:12px;
+            background:linear-gradient(135deg,rgba(255,215,64,0.2),rgba(255,143,0,0.15));
+            border:1px solid rgba(255,215,64,0.4);
+            display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;
+        }
+        .activity-frame-header h3 {
+            font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:2px;
+        }
+        .activity-frame-header p {
+            font-size:.78rem;color:rgba(224,247,250,0.5);margin-top:3px;
+        }
+        /* 奖励行 */
+        .reward-table { padding:8px 0; }
+        .reward-row {
+            display:grid;grid-template-columns:1fr 1fr 1fr;
+            align-items:center;padding:16px 28px;
+            border-bottom:1px solid rgba(255,255,255,0.04);
+            transition:background .25s;position:relative;
+        }
+        .reward-row:last-child { border-bottom:none; }
+        .reward-row:hover { background:rgba(255,215,64,0.04); }
+        .reward-row::before {
+            content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+            background:transparent;transition:background .25s;border-radius:0 2px 2px 0;
+        }
+        .reward-row:hover::before { background:var(--gold); }
+        .reward-col-label {
+            font-size:.7rem;letter-spacing:2px;color:rgba(224,247,250,0.35);
+            text-transform:uppercase;margin-bottom:4px;
+        }
+        .reward-days {
+            font-size:1rem;font-weight:700;color:#fff;
+        }
+        .reward-days em {
+            font-style:normal;font-size:.75rem;
+            background:rgba(0,229,255,0.12);border:1px solid rgba(0,229,255,0.25);
+            color:var(--cyan);padding:2px 8px;border-radius:8px;margin-left:6px;font-weight:600;
+        }
+        .reward-diamonds {
+            font-size:1.05rem;font-weight:700;
+            background:linear-gradient(135deg,#7ee8fa,var(--cyan));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        }
+        .reward-diamonds .diam-icon { -webkit-text-fill-color:initial; }
+        .reward-amount-wrap {
+            display:flex;align-items:center;gap:8px;
+        }
+        .reward-amount {
+            font-size:1.3rem;font-weight:900;
+            background:linear-gradient(135deg,var(--gold),#ff8f00);
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        }
+        .reward-unit {
+            font-size:.72rem;color:rgba(255,215,64,0.6);letter-spacing:1px;font-weight:600;
+        }
+        /* 表头行 */
+        .reward-header-row {
+            display:grid;grid-template-columns:1fr 1fr 1fr;
+            padding:12px 28px;
+            background:rgba(0,0,0,0.2);
+            border-bottom:1px solid rgba(255,255,255,0.06);
+        }
+        .reward-header-row span {
+            font-size:.68rem;letter-spacing:3px;color:rgba(224,247,250,0.3);text-transform:uppercase;
+        }
+        /* 注意事项框架 */
+        .activity-notes-frame {
+            background:rgba(5,15,25,0.6);backdrop-filter:blur(16px);
+            border:1px solid rgba(0,229,255,0.2);border-radius:20px;
+            overflow:hidden;
+        }
+        .activity-notes-header {
+            display:flex;align-items:center;gap:14px;padding:22px 28px;
+            border-bottom:1px solid rgba(0,229,255,0.1);
+            background:linear-gradient(135deg,rgba(0,229,255,0.06),rgba(0,100,120,0.04));
+        }
+        .activity-notes-icon {
+            width:44px;height:44px;border-radius:12px;
+            background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(0,100,120,0.1));
+            border:1px solid rgba(0,229,255,0.35);
+            display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;
+        }
+        .activity-notes-header h3 {
+            font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:2px;
+        }
+        .activity-notes-header p {
+            font-size:.78rem;color:rgba(224,247,250,0.5);margin-top:3px;
+        }
+        .activity-notes-body { padding:24px 28px; }
+        .note-item {
+            display:flex;align-items:flex-start;gap:14px;
+            padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04);
+        }
+        .note-item:last-child { border-bottom:none; }
+        .note-num {
+            width:28px;height:28px;border-radius:8px;flex-shrink:0;
+            background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.25);
+            display:flex;align-items:center;justify-content:center;
+            font-size:.75rem;font-weight:700;color:var(--cyan);
+        }
+        .note-text {
+            font-size:.875rem;color:rgba(224,247,250,0.75);line-height:1.75;padding-top:3px;
+        }
+        .note-text strong { color:#fff; }
+        /* 活动有效期横幅 */
+        .activity-validity-bar {
+            display:flex;align-items:center;justify-content:center;gap:12px;
+            background:linear-gradient(135deg,rgba(255,215,64,0.08),rgba(0,229,255,0.05));
+            border:1px solid rgba(255,215,64,0.2);border-radius:14px;
+            padding:14px 24px;margin-bottom:32px;
+            font-size:.85rem;color:rgba(224,247,250,0.7);
+        }
+        .validity-dot {
+            width:8px;height:8px;border-radius:50%;background:var(--gold);
+            box-shadow:0 0 8px var(--gold);animation:dotBlink 1.5s ease-in-out infinite;flex-shrink:0;
+        }
+        .validity-label { color:var(--gold);font-weight:700;letter-spacing:1px; }
+        @media(max-width:768px){
+            #popup-box{padding:28px 22px 24px;}
+            .popup-btn-wrap{flex-direction:column;}
+            .reward-row,.reward-header-row{grid-template-columns:1fr 1fr 1fr;padding:12px 18px;}
+            .reward-amount{font-size:1.1rem;}
+            .activity-frame-header,.activity-notes-header{padding:18px 20px;}
+            .activity-notes-body{padding:18px 20px;}
+            .reward-days em{display:none;}
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --cyan: #00e5ff; --cyan-dark: #00b8d4; --cyan-glow: rgba(0,229,255,0.3);
@@ -33,8 +255,7 @@
 
         #glCanvas { position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none; }
 
-        /* ══ 所有页面容器必须有 position+z-index ══ */
-        #main-page,#detail-page,#protect-page,#agent-page,#industry-page { position:relative;z-index:1; }
+        #main-page,#detail-page,#protect-page,#agent-page,#industry-page,#about-page { position:relative;z-index:1; }
 
         nav { position:fixed;top:0;width:100%;z-index:100;background:rgba(5,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,229,255,0.2);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:70px;transition:transform .4s cubic-bezier(.16,1,.3,1); }
         nav.nav-hidden { transform:translateY(-100%); }
@@ -43,6 +264,27 @@
         .nav-links { display:flex;gap:6px;list-style:none; }
         .nav-links a { color:#90caf9;text-decoration:none;font-size:14px;padding:6px 14px;border-radius:20px;transition:all .3s; }
         .nav-links a:hover { color:var(--cyan);background:rgba(0,229,255,0.1); }
+.nav-activity-btn {
+            display:inline-flex;align-items:center;gap:6px;
+            background:linear-gradient(135deg,rgba(255,215,64,0.18),rgba(255,100,0,0.12));
+            border:1px solid rgba(255,215,64,0.5);
+            color:var(--gold);font-size:14px;font-weight:700;
+            padding:6px 16px;border-radius:20px;cursor:pointer;
+            letter-spacing:1px;
+            transition:all .3s;
+            animation:navBtnPulse 2.5s ease-in-out infinite;
+        }
+        .nav-activity-btn:hover {
+            background:linear-gradient(135deg,rgba(255,215,64,0.35),rgba(255,100,0,0.25));
+            border-color:var(--gold);
+            box-shadow:0 0 20px rgba(255,215,64,0.4);
+            transform:translateY(-1px);
+            animation:none;
+        }
+        @keyframes navBtnPulse {
+            0%,100%{ box-shadow:0 0 0px rgba(255,215,64,0); }
+            50%{ box-shadow:0 0 14px rgba(255,215,64,0.35); }
+        }
         .back-btn { display:inline-flex;align-items:center;gap:8px;color:var(--cyan);font-size:.9rem;padding:8px 20px;border:1px solid rgba(0,229,255,0.3);border-radius:24px;transition:all .3s;background:none;cursor:pointer; }
         .back-btn:hover { background:rgba(0,229,255,0.1);transform:translateX(-3px); }
 
@@ -76,7 +318,7 @@
         .about-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px; }
         .benefits-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:700px;margin:0 auto; }
         .info-grid { display:grid;gap:24px; }
-        .links-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto; }
+        .links-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:700px;margin:0 auto; }
 
         .card,.benefit-item,.agent-card,.info-card,.protect-item,.contact-item,.link-card,.agent-contact-item {
             background:rgba(5,15,25,0.5);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
@@ -92,13 +334,11 @@
         .benefit-item.clickable::after { background:radial-gradient(550px circle at var(--mouse-x) var(--mouse-y),rgba(255,255,255,0.18) 0%,rgba(255,215,64,0.25) 15%,transparent 50%); }
         .benefit-item.clickable-green::after { background:radial-gradient(550px circle at var(--mouse-x) var(--mouse-y),rgba(255,255,255,0.18) 0%,rgba(0,230,118,0.25) 15%,transparent 50%); }
         .agent-card::after { background:radial-gradient(550px circle at var(--mouse-x) var(--mouse-y),rgba(255,255,255,0.18) 0%,rgba(206,147,216,0.25) 15%,transparent 50%); }
-        /* 行业地位卡片金色光效 */
         .card.industry-card::after { background:radial-gradient(550px circle at var(--mouse-x) var(--mouse-y),rgba(255,255,255,0.18) 0%,rgba(255,215,64,0.3) 15%,transparent 50%); }
         .card:hover::after,.benefit-item:hover::after,.agent-card:hover::after,.info-card:hover::after,.protect-item:hover::after { opacity:1; }
         .card.industry-card:hover::after { opacity:1; }
 
         .card:hover { border-color:rgba(0,229,255,0.4);box-shadow:0 15px 40px rgba(0,229,255,0.15); }
-        /* 行业地位卡片悬停金色 */
         .card.industry-card { cursor:pointer;border-color:rgba(255,215,64,0.2); }
         .card.industry-card:hover { border-color:var(--gold);box-shadow:0 15px 50px rgba(255,215,64,0.25); }
         .card.industry-card .click-hint { position:absolute;bottom:14px;right:18px;font-size:.75rem;color:var(--gold);opacity:0;transform:translateY(6px);transition:all .3s;z-index:5; }
@@ -156,7 +396,6 @@
         footer { position:relative;z-index:1;text-align:center;padding:36px 20px;border-top:1px solid rgba(0,229,255,0.1);color:rgba(224,247,250,0.35);font-size:.82rem;letter-spacing:1px; }
         footer img { height:38px;filter:url(#remove-black);margin-bottom:12px;opacity:.6; }
 
-        /* ══ 页面显示控制 ══ */
         #main-page { display:block; }
         #detail-page,#protect-page,#agent-page,#industry-page { display:none; }
         #main-page.hidden { display:none; }
@@ -167,7 +406,6 @@
         .page-fade-in { animation:pageFade .6s cubic-bezier(.2,1,.3,1) forwards; }
         @keyframes pageFade { from{opacity:0;transform:translateY(40px) scale(.98);filter:blur(4px)} to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)} }
 
-        /* ══ 详情页通用 ══ */
         .detail-hero { position:relative;z-index:1;padding-top:140px;padding-bottom:60px;text-align:center; }
         .detail-hero-icon { font-size:4rem;margin-bottom:16px;animation:pulse 2s infinite; }
         @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1);text-shadow:0 0 30px rgba(255,255,255,0.4)} }
@@ -248,25 +486,18 @@
         .cta-box h2 { font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:2px; }
         .cta-box p { font-size:.92rem;color:rgba(224,247,250,0.8);margin-bottom:28px;line-height:1.7; }
 
-        /* ══ 荣誉墙 — 奖杯图片展示 ══ */
+        /* ══ 荣誉墙 ══ */
         .awards-intro { text-align:center;margin-bottom:50px;padding:32px 28px;background:linear-gradient(135deg,rgba(255,215,64,0.06),rgba(0,229,255,0.04));border:1px solid rgba(255,215,64,0.2);border-radius:20px; }
         .awards-intro p { font-size:.98rem;color:rgba(224,247,250,0.8);line-height:1.9; }
-
-        /* 奖杯网格：2列+最后1个居中 */
         .awards-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:860px;margin:0 auto; }
-        .award-card {
-            background:rgba(5,15,25,0.5);backdrop-filter:blur(16px);
-            border:1px solid rgba(255,215,64,0.2);border-radius:20px;
-            overflow:hidden;transition:all .4s ease;cursor:pointer;position:relative;
-        }
-        .award-card:hover { border-color:var(--gold);box-shadow:0 20px 60px rgba(255,215,64,0.25),0 0 0 1px rgba(255,215,64,0.15); transform:translateY(-8px) scale(1.01); }
+        .award-card { background:rgba(5,15,25,0.5);backdrop-filter:blur(16px);border:1px solid rgba(255,215,64,0.2);border-radius:20px;overflow:hidden;transition:all .4s ease;cursor:pointer;position:relative; }
+        .award-card:hover { border-color:var(--gold);box-shadow:0 20px 60px rgba(255,215,64,0.25),0 0 0 1px rgba(255,215,64,0.15);transform:translateY(-8px) scale(1.01); }
         .award-card-img { width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform .5s ease; }
         .award-card:hover .award-card-img { transform:scale(1.04); }
         .award-card-body { padding:22px 24px; }
         .award-badge { display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(255,215,64,0.15),rgba(255,143,0,0.1));border:1px solid rgba(255,215,64,0.35);color:var(--gold);font-size:.72rem;letter-spacing:2px;padding:4px 14px;border-radius:20px;margin-bottom:12px; }
         .award-card h3 { font-size:1.05rem;color:#fff;font-weight:700;margin-bottom:6px;letter-spacing:1px; }
         .award-card p { font-size:.85rem;color:rgba(224,247,250,0.65);line-height:1.6; }
-        /* 第5张居中 */
         .awards-grid .award-card:last-child:nth-child(odd) { grid-column:1/-1;max-width:420px;justify-self:center; }
 
         /* 灯箱 */
@@ -280,30 +511,469 @@
         #lightbox-prev { left:16px; } #lightbox-next { right:16px; }
         #lightbox-prev:hover,#lightbox-next:hover { color:#fff;border-color:var(--gold); }
 
-        /* 统计数字条 */
         .stats-bar { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:700px;margin:0 auto 50px; }
         .stat-item { text-align:center;padding:24px 16px;background:rgba(5,15,25,0.5);border:1px solid rgba(255,215,64,0.2);border-radius:16px;transition:all .3s; }
         .stat-item:hover { border-color:var(--gold);box-shadow:0 8px 24px rgba(255,215,64,0.15); }
         .stat-num { font-size:2rem;font-weight:900;color:var(--gold);line-height:1;margin-bottom:6px; }
         .stat-label { font-size:.78rem;color:rgba(224,247,250,0.6);letter-spacing:2px; }
 
-        @media(max-width:768px){
-            nav{padding:0 16px;} .nav-links{display:none;} section{padding:70px 20px;}
-            .benefits-grid,.contact-wrap,.links-grid,.info-grid{grid-template-columns:1fr;}
-            .detail-section{padding:0 20px 60px;} .cta-section{padding:20px 20px 80px;}
-            .cta-box{padding:30px 22px;} .agent-profile-card{padding:30px 22px;}
-            .awards-grid{grid-template-columns:1fr;}
-            .awards-grid .award-card:last-child:nth-child(odd){grid-column:auto;max-width:100%;}
-            .stats-bar{grid-template-columns:1fr;}
-            #custom-cursor,#cursor-trail{display:none;}
-            #lightbox-prev{left:4px;} #lightbox-next{right:4px;}
+        /* ══════════════════════════════════════════
+           分成比升级可视化  Commission Upgrade Visual
+        ══════════════════════════════════════════ */
+
+        /* 顶部对比横幅 */
+        .commission-compare-banner {
+            display:flex;align-items:center;justify-content:center;gap:0;
+            background:linear-gradient(135deg,rgba(5,15,25,0.8),rgba(10,25,40,0.9));
+            border:1px solid rgba(255,215,64,0.25);border-radius:20px;
+            overflow:hidden;margin-bottom:32px;
         }
+        .commission-side {
+            flex:1;padding:36px 28px;text-align:center;position:relative;
+        }
+        .commission-side.base-side {
+            background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(0,100,120,0.08));
+            border-right:1px solid rgba(255,255,255,0.08);
+        }
+        .commission-side.max-side {
+            background:linear-gradient(135deg,rgba(255,215,64,0.08),rgba(255,100,0,0.06));
+        }
+        .commission-label {
+            font-size:.72rem;letter-spacing:3px;margin-bottom:12px;font-weight:600;
+        }
+        .commission-side.base-side .commission-label { color:rgba(0,229,255,0.7); }
+        .commission-side.max-side .commission-label { color:rgba(255,215,64,0.8); }
+        .commission-percent {
+    font-size:clamp(3rem,8vw,5rem);font-weight:900;line-height:1;
+}
+        .commission-side.base-side .commission-percent {
+    color: var(--cyan);
+    text-shadow: 0 0 40px rgba(0,229,255,0.8), 0 0 80px rgba(0,229,255,0.4);
+    -webkit-text-fill-color: var(--cyan);
+}
+.commission-side.max-side .commission-percent {
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(255,215,64,0.9), 0 0 80px rgba(255,143,0,0.5);
+    -webkit-text-fill-color: var(--gold);
+}
+        .commission-desc { font-size:.82rem;color:rgba(224,247,250,0.55);margin-top:8px;line-height:1.5; }
+        .commission-arrow-wrap {
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            padding:0 16px;gap:6px;flex-shrink:0;
+        }
+        .commission-arrow-icon {
+            font-size:2rem;color:var(--gold);
+            animation:arrowPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes arrowPulse {
+            0%,100%{transform:translateX(0);opacity:.6}
+            50%{transform:translateX(8px);opacity:1}
+        }
+        .commission-arrow-text {
+            font-size:.65rem;color:rgba(255,215,64,0.6);letter-spacing:2px;white-space:nowrap;
+        }
+
+        /* 进度阶梯可视化 */
+        .commission-ladder {
+            display:flex;flex-direction:column;gap:0;
+            background:rgba(5,15,25,0.5);border:1px solid rgba(255,215,64,0.15);
+            border-radius:20px;overflow:hidden;margin-bottom:32px;
+        }
+        .ladder-step {
+            display:flex;align-items:center;gap:0;
+            border-bottom:1px solid rgba(255,255,255,0.05);
+            transition:background .3s;
+        }
+        .ladder-step:last-child { border-bottom:none; }
+        .ladder-step:hover { background:rgba(255,215,64,0.04); }
+        .ladder-step-num {
+            width:56px;min-width:56px;height:80px;display:flex;align-items:center;
+            justify-content:center;font-size:1.3rem;font-weight:900;
+            border-right:1px solid rgba(255,255,255,0.05);flex-shrink:0;
+            background:rgba(0,0,0,0.2);
+        }
+        .ladder-step:nth-child(1) .ladder-step-num { color:var(--cyan); }
+        .ladder-step:nth-child(2) .ladder-step-num { color:#7ee8fa; }
+        .ladder-step:nth-child(3) .ladder-step-num { color:var(--gold); }
+        .ladder-step:nth-child(4) .ladder-step-num { color:#ff9a3c; }
+        .ladder-step-body {
+            flex:1;padding:18px 22px;
+        }
+        .ladder-step-title {
+            font-size:.9rem;color:#fff;font-weight:600;margin-bottom:4px;
+        }
+        .ladder-step-desc {
+            font-size:.8rem;color:rgba(224,247,250,0.55);line-height:1.5;
+        }
+        .ladder-step-bonus {
+            min-width:120px;padding:0 22px;text-align:center;flex-shrink:0;
+        }
+        .ladder-bonus-num {
+            font-size:1.5rem;font-weight:900;
+            background:linear-gradient(135deg,var(--gold),#ff8f00);
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+            line-height:1;
+        }
+        .ladder-bonus-label {
+            font-size:.68rem;color:rgba(224,247,250,0.4);letter-spacing:1px;margin-top:3px;
+        }
+        /* 进度条行 */
+        .ladder-bar-row {
+            padding:0 22px 16px 78px;
+        }
+        .ladder-bar-track {
+            height:5px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;
+        }
+        .ladder-bar-fill {
+            height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.16,1,.3,1);width:0;
+        }
+        .ladder-step:nth-child(1) .ladder-bar-fill { background:linear-gradient(90deg,var(--cyan),#00b8d4);width:50%; }
+        .ladder-step:nth-child(2) .ladder-bar-fill { background:linear-gradient(90deg,#7ee8fa,#00acc1);width:30%; }
+        .ladder-step:nth-child(3) .ladder-bar-fill { background:linear-gradient(90deg,var(--gold),#ffab00);width:10%; }
+        .ladder-step:nth-child(4) .ladder-bar-fill { background:linear-gradient(90deg,#ff9a3c,#ff6d00);width:10%; }
+
+        /* 4张要求卡片 */
+        .req-cards-grid {
+            display:grid;grid-template-columns:repeat(2,1fr);gap:18px;
+            margin-bottom:28px;
+        }
+        .req-card {
+            background:rgba(5,15,25,0.6);backdrop-filter:blur(12px);
+            border-radius:16px;overflow:hidden;
+            transition:all .4s ease;position:relative;will-change:transform;
+        }
+        .req-card::after {
+            content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;
+            background:radial-gradient(400px circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(255,215,64,0.2) 0%,transparent 60%);
+            mix-blend-mode:screen;transition:opacity .4s;
+        }
+        .req-card:hover::after { opacity:1; }
+        .req-card-header {
+            display:flex;align-items:center;gap:14px;padding:18px 20px 14px;
+            border-bottom:1px solid rgba(255,255,255,0.05);
+        }
+        .req-card-num {
+            width:36px;height:36px;border-radius:10px;display:flex;align-items:center;
+            justify-content:center;font-size:.8rem;font-weight:800;letter-spacing:1px;
+            flex-shrink:0;position:relative;z-index:2;
+        }
+        .req-card:nth-child(1) .req-card-num { background:rgba(0,229,255,0.15);border:1px solid rgba(0,229,255,0.4);color:var(--cyan); }
+        .req-card:nth-child(2) .req-card-num { background:rgba(126,232,250,0.12);border:1px solid rgba(126,232,250,0.35);color:#7ee8fa; }
+        .req-card:nth-child(3) .req-card-num { background:rgba(255,215,64,0.12);border:1px solid rgba(255,215,64,0.4);color:var(--gold); }
+        .req-card:nth-child(4) .req-card-num { background:rgba(255,154,60,0.12);border:1px solid rgba(255,154,60,0.4);color:#ff9a3c; }
+        .req-card-title {
+            font-size:.9rem;color:#fff;font-weight:600;position:relative;z-index:2;
+        }
+        .req-card-body { padding:14px 20px 18px; position:relative;z-index:2; }
+        .req-card-target {
+            font-size:1.15rem;font-weight:800;margin-bottom:6px;
+        }
+        .req-card:nth-child(1) .req-card-target { color:var(--cyan); }
+        .req-card:nth-child(2) .req-card-target { color:#7ee8fa; }
+        .req-card:nth-child(3) .req-card-target { color:var(--gold); }
+        .req-card:nth-child(4) .req-card-target { color:#ff9a3c; }
+        .req-card-sub { font-size:.8rem;color:rgba(224,247,250,0.55);margin-bottom:14px;line-height:1.5; }
+        .req-card-reward {
+            display:inline-flex;align-items:center;gap:6px;
+            padding:5px 14px;border-radius:20px;font-size:.78rem;font-weight:700;letter-spacing:1px;
+        }
+        .req-card:nth-child(1) .req-card-reward { background:rgba(0,229,255,0.12);border:1px solid rgba(0,229,255,0.3);color:var(--cyan); }
+        .req-card:nth-child(2) .req-card-reward { background:rgba(126,232,250,0.1);border:1px solid rgba(126,232,250,0.3);color:#7ee8fa; }
+        .req-card:nth-child(3) .req-card-reward { background:rgba(255,215,64,0.1);border:1px solid rgba(255,215,64,0.3);color:var(--gold); }
+        .req-card:nth-child(4) .req-card-reward { background:rgba(255,154,60,0.1);border:1px solid rgba(255,154,60,0.3);color:#ff9a3c; }
+
+        /* 顶部边框颜色 */
+        .req-card:nth-child(1) { border:1px solid rgba(0,229,255,0.2); }
+        .req-card:nth-child(2) { border:1px solid rgba(126,232,250,0.18); }
+        .req-card:nth-child(3) { border:1px solid rgba(255,215,64,0.2); }
+        .req-card:nth-child(4) { border:1px solid rgba(255,154,60,0.18); }
+        .req-card:hover { transform:translateY(-4px); }
+        .req-card:nth-child(1):hover { border-color:rgba(0,229,255,0.5);box-shadow:0 12px 30px rgba(0,229,255,0.15); }
+        .req-card:nth-child(2):hover { border-color:rgba(126,232,250,0.4);box-shadow:0 12px 30px rgba(126,232,250,0.12); }
+        .req-card:nth-child(3):hover { border-color:rgba(255,215,64,0.5);box-shadow:0 12px 30px rgba(255,215,64,0.18); }
+        .req-card:nth-child(4):hover { border-color:rgba(255,154,60,0.4);box-shadow:0 12px 30px rgba(255,154,60,0.14); }
+
+        /* 积累提示框 */
+        .accumulate-box {
+            display:flex;align-items:center;gap:18px;
+            background:linear-gradient(135deg,rgba(255,215,64,0.07),rgba(0,229,255,0.04));
+            border:1px solid rgba(255,215,64,0.3);border-radius:14px;
+            padding:20px 24px;margin-top:4px;
+        }
+        .accumulate-icon { font-size:1.8rem;flex-shrink:0; }
+        .accumulate-text h4 { font-size:.9rem;color:var(--gold);margin-bottom:5px; }
+        .accumulate-text p { font-size:.82rem;color:rgba(224,247,250,0.65);line-height:1.6; }
+
+        @media(max-width:1024px){
+            section{padding:70px 30px;max-width:100%;}
+            .about-grid{grid-template-columns:repeat(2,1fr);}
+            nav{padding:0 24px;}
+        }
+        @media(max-width:768px){
+    /* 导航优化 */
+    nav{padding:0 12px;height:60px;}
+    .nav-logo img{height:40px;}
+    .nav-links{display:none;}
+    .nav-activity-btn{font-size:12px;padding:5px 12px;}
+    .back-btn{font-size:.85rem;padding:6px 16px;}
+    
+    /* Hero区域*/
+    #hero{padding:0 20px;}
+    .hero-logo{width:180px;}
+    .hero-title{font-size:2rem;letter-spacing:3px;margin-bottom:10px;}
+    .hero-sub{font-size:.9rem;letter-spacing:2px;margin-bottom:28px;}
+    .hero-btn{padding:12px 32px;font-size:.9rem;}
+    .scroll-hint{font-size:.7rem;bottom:20px;}
+    
+    /* Section间距 */
+    section{padding:60px 16px;}
+    .section-header{margin-bottom:40px;}
+    .section-title{font-size:1.6rem;}
+    .section-tag{font-size:.7rem;padding:4px 14px;}
+    
+    /* 网格布局 */
+    .about-grid{grid-template-columns:1fr;gap:16px;}
+    .benefits-grid{grid-template-columns:1fr;gap:16px;}
+    .contact-wrap{grid-template-columns:1fr;gap:16px;}
+    .links-grid{grid-template-columns:1fr;gap:16px;}
+    .info-grid{grid-template-columns:1fr;gap:16px;}
+    
+    /* 卡片优化 */
+    .card{padding:24px 20px;}
+    .card-icon{font-size:2rem;}
+    .card h3{font-size:1rem;}
+    .card p{font-size:.85rem;}
+    
+    .benefit-item{padding:24px 20px;}
+    .benefit-num{font-size:1.8rem;}
+    .benefit-item h4{font-size:.9rem;}
+    .benefit-item p{font-size:.8rem;}
+    .benefit-item.clickable::before{font-size:.7rem;bottom:10px;}
+    
+    /* Agent卡片 */
+    .agent-card{padding:30px 24px;}
+    .agent-avatar{width:70px;height:70px;font-size:1.8rem;}
+    .agent-card h3{font-size:1.1rem;}
+    .agent-role{font-size:.75rem;}
+    .agent-card p{font-size:.85rem;}
+    
+    /* 联系方式 */
+    .contact-item{padding:20px 16px;gap:14px;}
+    .contact-icon{width:40px;height:40px;font-size:1.2rem;}
+    .contact-info h4{font-size:.8rem;}
+    .contact-info p{font-size:.85rem;}
+    
+    /* 链接卡片 */
+    .link-card{padding:20px 16px;}
+    .link-icon{font-size:1.4rem;}
+    .link-left h4{font-size:.9rem;}
+    .link-left p{font-size:.75rem;}
+    
+    /* Detail页面 */
+    .detail-hero{padding-top:100px;padding-bottom:40px;}
+    .detail-hero-icon{font-size:3rem;}
+    .detail-hero h1{font-size:1.8rem;letter-spacing:2px;}
+    .detail-hero p{font-size:.9rem;padding:0 16px;}
+    
+    .detail-section{padding:0 16px 50px;}
+    .detail-block{margin-bottom:40px;}
+    .detail-block-title{gap:10px;margin-bottom:20px;padding-bottom:12px;}
+    .detail-block-title .icon{width:36px;height:36px;font-size:1.1rem;}
+    .detail-block-title h2{font-size:1.1rem;}
+    /* Info卡片 */
+    .info-card{padding:20px 16px;}
+    .info-card h4{font-size:.85rem;}
+    .info-card p,.info-card ul li{font-size:.8rem;}
+    
+    /* 高亮框 */
+    .highlight-box{padding:24px 20px;}
+    .highlight-box h3{font-size:1rem;}
+    .highlight-box p{font-size:.85rem;}
+    
+    /* 保护列表 */
+    .protect-item{padding:18px 16px;gap:14px;}
+    .protect-icon-box{width:40px;height:40px;font-size:1.2rem;}
+    .protect-content h4{font-size:.85rem;}
+    .protect-content p{font-size:.8rem;}
+     
+    /* Agent资料卡 */
+    .agent-profile-card{padding:30px 20px;}
+    .agent-profile-avatar{width:100px;height:100px;}
+    .agent-profile-name{font-size:1.3rem;}
+    .agent-profile-role{font-size:.7rem;padding:4px 14px;}
+    .agent-profile-desc{font-size:.85rem;}
+    
+    /* Agent联系方式 */
+    .agent-contact-item{padding:18px 20px;gap:16px;}
+    .agent-contact-icon-box{width:44px;height:44px;font-size:1.3rem;}
+    .agent-contact-info h4{font-size:.8rem;}
+    .agent-contact-info p{font-size:.9rem;}
+    
+    /* CTA区域 */
+    .cta-section{padding:30px 16px 70px;}
+    .cta-box{padding:28px 20px;}
+    .cta-box h2{font-size:1.3rem;}
+    .cta-box p{font-size:.85rem;margin-bottom:24px;}
+    .cta-btn{padding:12px 32px;font-size:.9rem;}
+    
+    /* 奖项网格 */
+    .awards-intro{padding:24px 20px;margin-bottom:40px;}
+    .awards-intro p{font-size:.85rem;}
+    .awards-grid{grid-template-columns:1fr;gap:24px;}
+    .award-card-body{padding:18px 20px;}
+    .award-badge{font-size:.68rem;padding:3px 12px;}
+    .award-card h3{font-size:.95rem;}
+    .award-card p{font-size:.8rem;}
+    
+    /* 统计栏 */
+    .stats-bar{grid-template-columns:1fr;gap:16px;margin-bottom:40px;}
+    .stat-item{padding:20px 16px;}
+    .stat-num{font-size:1.8rem;}
+    .stat-label{font-size:.7rem;}
+    
+    /* 佣金对比横幅 */
+    .commission-compare-banner{flex-direction:column;}
+    .commission-side{padding:28px 20px;}
+    .commission-side.base-side{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
+    .commission-label{font-size:.68rem;}
+    .commission-percent{font-size:3.5rem;}
+    .commission-desc{font-size:.75rem;}
+    .commission-arrow-wrap{flex-direction:row;padding:12px 0;transform:rotate(90deg);}
+    .commission-arrow-icon{font-size:1.5rem;}
+    .commission-arrow-text{font-size:.6rem;}
+    
+    /* 阶梯进度 */
+    .ladder-step{grid-template-columns:auto1fr;padding:0;}
+    .ladder-step-num{width:48px;min-width:48px;height:auto;min-height:80px;font-size:1.1rem;}
+    .ladder-step-body{padding:16px 16px;}
+    .ladder-step-title{font-size:.85rem;}
+    .ladder-step-desc{font-size:.75rem;}
+    .ladder-step-bonus{min-width:auto;width:100%;padding:12px 16px;text-align:left;border-top:1px solid rgba(255,255,255,0.05);}
+    .ladder-bonus-num{font-size:1.2rem;}
+    .ladder-bonus-label{font-size:.65rem;}
+    .ladder-bar-row{padding:0 16px 12px 64px;}
+    /* 要求卡片 */
+    .req-cards-grid{grid-template-columns:1fr;gap:16px;}
+    .req-card-header{padding:14px 16px 12px;gap:10px;}
+    .req-card-num{width:32px;height:32px;font-size:.75rem;}
+    .req-card-title{font-size:.85rem;}
+    .req-card-body{padding:12px 16px16px;}
+    .req-card-target{font-size:1rem;}
+    .req-card-sub{font-size:.75rem;margin-bottom:12px;}
+    .req-card-reward{font-size:.72rem;padding:4px 12px;}
+    /* 累积提示框 */
+    .accumulate-box{padding:16px 18px;gap:14px;flex-direction:column;text-align:center;}
+    .accumulate-icon{font-size:1.5rem;}
+    .accumulate-text h4{font-size:.85rem;}
+    .accumulate-text p{font-size:.75rem;}
+    
+    /* 弹窗优化 */
+    #popup-box{padding:24px 18px 20px;max-width:calc(100vw - 32px);}
+    #popup-close{top:12px;right:16px;font-size:1.2rem;}
+    .popup-badge{font-size:.68rem;padding:4px 12px;}
+    .popup-title{font-size:1.3rem;}
+    .popup-desc{font-size:.8rem;margin-bottom:20px;}
+    .popup-preview{padding:14px 16px;margin-bottom:22px;}
+    .popup-preview-title{font-size:.68rem;}
+    .popup-preview-row{font-size:.75rem;padding:5px 0;}
+    .popup-preview-row .pr-right{font-size:.72rem;}
+    .popup-btn-wrap{flex-direction:column;gap:10px;}
+    .popup-go-btn{font-size:.85rem;padding:12px 18px;}
+    .popup-skip-btn{font-size:.8rem;padding:12px 18px;}
+    
+    /* 活动页面 */
+    .activity-validity-bar{padding:12px 16px;font-size:.8rem;flex-wrap:wrap;justify-content:center;text-align:center;}
+    .activity-frame-header,.activity-notes-header{padding:16px 18px;gap:12px;}
+    .activity-frame-icon,.activity-notes-icon{width:38px;height:38px;font-size:1.1rem;}
+    .activity-frame-header h3,.activity-notes-header h3{font-size:1rem;}
+    .activity-frame-header p,.activity-notes-header p{font-size:.72rem;}
+    .activity-notes-body{padding:18px 16px;}
+    .note-item{padding:12px 0;gap:12px;}
+    .note-num{width:26px;height:26px;font-size:.7rem;}
+    .note-text{font-size:.8rem;}
+    .reward-header-row{padding:10px 16px;}
+    .reward-header-row span{font-size:.65rem;}
+    .reward-row{grid-template-columns:1fr 1fr 1fr;padding:14px 16px;}
+    .reward-col-label{font-size:.65rem;}
+    .reward-days{font-size:.9rem;}
+    .reward-days em{display:none;}
+    .reward-diamonds{font-size:.95rem;}
+    .reward-amount{font-size:1.1rem;}
+    .reward-unit{font-size:.68rem;}
+    
+    /* About页面视频 */
+    .about-video-inner{border-radius:12px;}
+    .video-label{padding:10px 16px;font-size:.65rem;}
+    #about-page .stats-bar{grid-template-columns:repeat(2,1fr)!important;}
+    /* Footer */
+    footer{padding:28px 16px;}
+    footer img{height:32px;}
+    
+    /* 按钮优化 */
+    .join-btn{padding:16px;font-size:1rem;}
+    /* 灯箱 */
+    #lightbox-prev,#lightbox-next{width:44px;height:44px;font-size:1.8rem;}
+    #lightbox-prev{left:8px;}
+    #lightbox-next{right:8px;}
+    #lightbox-close{top:16px;right:20px;font-size:1.6rem;}
+    #lightbox-caption{font-size:.85rem;padding:0 16px;text-align:center;}
+    
+    /* 禁用3D效果和光标 */
+    #custom-cursor,#cursor-trail{display:none!important;}
+}
+/* ══ About 子页面 ══ */
+#about-page { display:none; }
+#about-page.active { display:block; }
+.detail-hero h1.cyan-title {
+    background:linear-gradient(135deg,#e0f7fa,#00e5ff,#00b8d4);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.card.about-card { cursor:pointer; }
+.card.about-card:hover { border-color:rgba(0,229,255,0.5);box-shadow:0 15px 50px rgba(0,229,255,0.2); }
+.card.about-card .click-hint {
+    position:absolute;bottom:14px;right:18px;font-size:.75rem;
+    color:var(--cyan);opacity:0;transform:translateY(6px);transition:all .3s;z-index:5;
+}
+.card.about-card:hover .click-hint { opacity:1;transform:translateY(0); }
+/* ══ 宣传视频 ══ */
+.about-video-wrap { display:flex;justify-content:center; }
+.about-video-inner {
+    width:100%;max-width:820px;background:rgba(5,15,25,0.6);
+    backdrop-filter:blur(16px);border:1px solid rgba(0,229,255,0.2);
+    border-radius:20px;overflow:hidden;
+    box-shadow:0 0 40px rgba(0,229,255,0.08),0 20px 60px rgba(0,0,0,0.4);
+    transition:border-color .4s,box-shadow .4s;
+}
+.about-video-inner:hover {
+    border-color:rgba(0,229,255,0.45);
+    box-shadow:0 0 60px rgba(0,229,255,0.18),0 20px 60px rgba(0,0,0,0.5);
+}
+.video-label {
+    display:flex;align-items:center;gap:10px;padding:14px 22px;
+    font-size:.72rem;letter-spacing:3px;color:rgba(0,229,255,0.6);
+    border-bottom:1px solid rgba(0,229,255,0.1);font-weight:600;
+}
+.video-label-dot {
+    width:8px;height:8px;border-radius:50%;background:var(--cyan);
+    box-shadow:0 0 8px var(--cyan);animation:dotBlink 1.5s ease-in-out infinite;flex-shrink:0;
+}
+@keyframes dotBlink {
+    0%,100%{opacity:1;box-shadow:0 0 8px var(--cyan);}
+    50%{opacity:.3;box-shadow:none;}
+}
+.about-video { width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#000; }
+@media(max-width:768px){
+    .about-video-inner{border-radius:14px;}
+    .video-label{padding:10px 16px;font-size:.65rem;}
+    #about-page .stats-bar{grid-template-columns:repeat(2,1fr)!important;}
+}
     </style>
 </head>
 <body>
 
 <div id="custom-cursor"></div>
-<div id="cursor-trail"></div>
+<div id="cursor-trail" style="display:none;"></div>
+
 
 <svg width="0" height="0" style="position:absolute;pointer-events:none;" aria-hidden="true">
     <filter id="remove-black" color-interpolation-filters="sRGB">
@@ -323,12 +993,45 @@
         <li><a href="#contact">Contacto</a></li>
         <li><a href="#links">Enlaces</a></li>
         <li><a href="#recruit">Únete</a></li>
+        <li>
+            <button class="nav-activity-btn" onclick="showActivityPage()">
+                🏆 Actividad
+            </button>
+        </li>
     </ul>
 </nav>
+<nav id="nav-activity">
+    <div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div>
+    <button class="back-btn" onclick="showMainPage()">← Volver</button>
+</nav>
 <nav id="nav-detail"><div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div><button class="back-btn" onclick="showMainPage()">← Volver</button></nav>
+<nav id="nav-activity">
+    <div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div>
+    <button class="back-btn" onclick="showMainPage()">← Volver</button>
+</nav>
 <nav id="nav-protect"><div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div><button class="back-btn" onclick="showMainPage()">← Volver</button></nav>
+<nav id="nav-activity">
+    <div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div>
+    <button class="back-btn" onclick="showMainPage()">← Volver</button>
+</nav>
 <nav id="nav-agent"><div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div><button class="back-btn" onclick="showMainPage()">← Volver</button></nav>
+<nav id="nav-activity">
+    <div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div>
+    <button class="back-btn" onclick="showMainPage()">← Volver</button>
+</nav>
 <nav id="nav-industry"><div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div><button class="back-btn" onclick="showMainPage()">← Volver</button></nav>
+<nav id="nav-activity">
+    <div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div>
+    <button class="back-btn" onclick="showMainPage()">← Volver</button>
+</nav>
+<nav id="nav-about">
+    <div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div>
+    <button class="back-btn" onclick="showMainPage()">← Volver</button>
+</nav>
+<nav id="nav-activity">
+    <div class="nav-logo"><img src="logo.png" alt="Tiger Shark Logo"></div>
+    <button class="back-btn" onclick="showMainPage()">← Volver</button>
+</nav>
 
 <!-- ════════════════════════════════════════ -->
 <!-- ════          主  页                ════ -->
@@ -350,24 +1053,25 @@
             <div class="section-divider"></div>
         </div>
         <div class="about-grid">
-            <div class="card">
-                <div class="card-icon">🦈</div>
-                <h3>Sobre Tiger Shark</h3>
-                <p>Tiger Shark es una agencia de gestión de primer nivel fundada en 2022, especializada en la formación y operación de creadores de contenido. Con amplia experiencia en la industria y un equipo profesional, nos dedicamos a descubrir, cultivar y promocionar talentos creativos de calidad.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🎯</div>
-                <h3>Nuestra Misión</h3>
-                <p>Con operaciones profesionales como núcleo, diseñamos estrategias de desarrollo personalizadas para cada creador, maximizando la monetización del tráfico. Creemos que toda persona con talento merece ser vista, y Tiger Shark será tu punto de despegue.</p>
-            </div>
-            <!-- ★ 行业地位卡片：添加 industry-card 类 + onclick ★ -->
-            <div class="card industry-card" onclick="showIndustryPage()">
-                <div class="card-icon">🏆</div>
-                <h3>Posición en la Industria</h3>
-                <p>Múltiples premios oficiales de TikTok LIVE FEST y Community FEST. Tiger Shark lidera los rankings globales de agencias, con reconocimiento en las ligas más competitivas del mundo.</p>
-                <span class="click-hint">Ver premios →</span>
-            </div>
-        </div>
+            <div class="card about-card" onclick="showAboutPage()">
+        <div class="card-icon">🦈</div>
+        <h3>Sobre Tiger Shark</h3>
+        <p>Tiger Shark es una agencia de gestión de primer nivel fundada en 2022...</p>
+        <span class="click-hint">Ver más →</span>
+    </div>
+    
+<div class="card about-card">
+    <div class="card-icon">🎯</div>
+    <h3>Nuestra Misión</h3>
+    <p>Con operaciones profesionales como núcleo, diseñamos estrategias de desarrollo personalizadas para cada creador, maximizando la monetización del tráfico. Creemos que toda persona con talento merece ser vista, y Tiger Shark será tu punto de despegue.</p>
+</div>
+    <div class="card industry-card" onclick="showIndustryPage()">
+        <div class="card-icon">🏆</div>
+        <h3>Posición en la Industria</h3>
+        <p>Múltiples premios oficiales de TikTok LIVE FEST...</p>
+        <span class="click-hint">Ver premios →</span>
+    </div>
+</div>
     </section>
     <div class="section-line"></div>
 
@@ -401,9 +1105,9 @@
     <section id="contact">
         <div class="section-header"><div class="section-tag">CONTACT</div><h2 class="section-title"><span>Contacto</span></h2><div class="section-divider"></div></div>
         <div class="contact-wrap">
-            <a href="https://wa.me/85262512763" target="_blank" rel="noopener" class="contact-item" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="contact-icon">💬</div><div class="contact-info"><h4>WHATSAPP</h4><p>+852 6251 2763</p></div></a>
+            <div class="contact-item"><div class="contact-icon">💬</div><div class="contact-info"><h4>WHATSAPP</h4><p>+852 5240 2056</p></div></div>
             <div class="contact-item"><div class="contact-icon">🕐</div><div class="contact-info"><h4>HORARIO LABORAL</h4><p>Lunes a Sábado 09:00pm - 05:00pm</p></div></div>
-            <a href="https://www.tiktok.com/@chad.tigershark_" target="_blank" rel="noopener" class="contact-item" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="contact-icon">🎵</div><div class="contact-info"><h4>TIKTOK</h4><p>@chad.tigershark_</p></div></a>
+            <div class="contact-item"><div class="contact-icon">🎵</div><div class="contact-info"><h4>TIKTOK</h4><p>@chad.tigershark_</p></div></div>
         </div>
     </section>
     <div class="section-line"></div>
@@ -411,7 +1115,6 @@
     <section id="links">
         <div class="section-header"><div class="section-tag">OFFICIAL LINKS</div><h2 class="section-title">Enlaces <span>Oficiales</span></h2><div class="section-divider"></div></div>
         <div class="links-grid">
-            <a href="https://husha221122-sudo.github.io/tigershark-Agency/" target="_blank" rel="noopener" class="link-card"><div class="link-left"><span class="link-icon">🌐</span><div><h4>Sitio Web Oficial</h4><p></p></div></div><span class="link-arrow">→</span></a>
             <a href="https://www.tiktok.com/@tigershark_agencia" target="_blank" rel="noopener" class="link-card"><div class="link-left"><span class="link-icon">🎵</span><div><h4>TIKTOK</h4><p>@tigershark_agencia</p></div></div><span class="link-arrow">→</span></a>
             <a href="https://wa.me/+852 6251 2763" target="_blank" rel="noopener" class="link-card"><div class="link-left"><span class="link-icon">💬</span><div><h4>Grupo Oficial de WhatsApp</h4><p>Obtén las últimas noticias</p></div></div><span class="link-arrow">→</span></a>
         </div>
@@ -427,7 +1130,6 @@
         </div>
         <div class="recruit-wrap">
             <a href="https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="join-btn hover-magnet" onclick="showJoinSuccess()">🦈 Enviar Solicitud Ahora</a>
-            
     </section>
     <footer><br><img src="logo.png" alt="Tiger Shark"><br>© 2024 Tiger Shark Agency · All Rights Reserved<br><br>Profesional · Integridad · Éxito Mutuo</footer>
 </div>
@@ -443,6 +1145,152 @@
     </div>
     <div class="section-line"></div>
     <div class="detail-section">
+
+        <!-- ★★★ 新增：分成比升级可视化模块 ★★★ -->
+        <div class="detail-block">
+            <div class="detail-block-title">
+                <div class="icon">🚀</div>
+                <h2>Desbloquea tu <span>Máxima Comisión</span></h2>
+            </div>
+
+            <!-- 对比横幅：3% → 5% -->
+            <div class="commission-compare-banner">
+                <div class="commission-side base-side">
+                    <div class="commission-label">COMISIÓN BASE</div>
+                    <div class="commission-percent">3%</div>
+                    <div class="commission-desc">Tasa de partida garantizada<br>para todos los creadores</div>
+                </div>
+                <div class="commission-arrow-wrap">
+                    <div class="commission-arrow-icon">→</div>
+                    <div class="commission-arrow-text">HASTA</div>
+                </div>
+                <div class="commission-side max-side">
+                    <div class="commission-label">COMISIÓN MÁXIMA</div>
+                    <div class="commission-percent">5%</div>
+                    <div class="commission-desc">Cumpliendo todos los requisitos<br>mensuales de bonificación</div>
+                </div>
+            </div>
+
+            <!-- 阶梯进度条 -->
+            <div class="commission-ladder">
+                <div class="ladder-step">
+                    <div class="ladder-step-num">①</div>
+                    <div class="ladder-step-body">
+                        <div class="ladder-step-title">⏱️ Horas de Transmisión</div>
+                        <div class="ladder-step-desc">Transmitir 15 horas dentro de un período de 7 días</div>
+                    </div>
+                    <div class="ladder-step-bonus">
+                        <div class="ladder-bonus-num">+2.5%</div>
+                        <div class="ladder-bonus-label">BONIFICACIÓN BASE</div>
+                    </div>
+                </div>
+                <div class="ladder-bar-row"><div class="ladder-bar-track"><div class="ladder-bar-fill"></div></div></div>
+
+                <div class="ladder-step">
+                    <div class="ladder-step-num">②</div>
+                    <div class="ladder-step-body">
+                        <div class="ladder-step-title">📅 Días Efectivos</div>
+                        <div class="ladder-step-desc">Alcanzar 21 días de transmisión efectiva durante el mes</div>
+                    </div>
+                    <div class="ladder-step-bonus">
+                        <div class="ladder-bonus-num">+1.5%</div>
+                        <div class="ladder-bonus-label">BONIFICACIÓN EXTRA</div>
+                    </div>
+                </div>
+                <div class="ladder-bar-row"><div class="ladder-bar-track"><div class="ladder-bar-fill"></div></div></div>
+
+                <div class="ladder-step">
+                    <div class="ladder-step-num">③</div>
+                    <div class="ladder-step-body">
+                        <div class="ladder-step-title">⭐ Club de Fans</div>
+                        <div class="ladder-step-desc">Mantener 70 o más miembros en el club de fans durante el mes</div>
+                    </div>
+                    <div class="ladder-step-bonus">
+                        <div class="ladder-bonus-num">+0.5%</div>
+                        <div class="ladder-bonus-label">BONIFICACIÓN EXTRA</div>
+                    </div>
+                </div>
+                <div class="ladder-bar-row"><div class="ladder-bar-track"><div class="ladder-bar-fill"></div></div></div>
+
+                <div class="ladder-step">
+                    <div class="ladder-step-num">④</div>
+                    <div class="ladder-step-body">
+                        <div class="ladder-step-title">💎 Ingresos de Diamantes</div>
+                        <div class="ladder-step-desc">Alcanzar 80,000 diamantes de ingresos durante el mes</div>
+                    </div>
+                    <div class="ladder-step-bonus">
+                        <div class="ladder-bonus-num">+0.5%</div>
+                        <div class="ladder-bonus-label">BONIFICACIÓN EXTRA</div>
+                    </div>
+                </div>
+                <div class="ladder-bar-row"><div class="ladder-bar-track"><div class="ladder-bar-fill"></div></div></div>
+            </div>
+
+            <!-- 4张要求卡片 -->
+            <div class="req-cards-grid">
+                <!-- Requisito 1 -->
+                <div class="req-card">
+                    <div class="req-card-header">
+                        <div class="req-card-num">REQ 1</div>
+                        <div class="req-card-title">⏱️ Horas de Transmisión</div>
+                    </div>
+                    <div class="req-card-body">
+                        <div class="req-card-target">15 horas / 7 días</div>
+                        <div class="req-card-sub">Transmitir al menos 15 horas dentro de cualquier período de 7 días consecutivos durante el mes.</div>
+                        <span class="req-card-reward">🎁 Bonificación Base +2.5%</span>
+                    </div>
+                </div>
+                <!-- Requisito 2 -->
+                <div class="req-card">
+                    <div class="req-card-header">
+                        <div class="req-card-num">REQ 2</div>
+                        <div class="req-card-title">📅 Días Efectivos</div>
+                    </div>
+                    <div class="req-card-body">
+                        <div class="req-card-target">21 días / mes</div>
+                        <div class="req-card-sub">Alcanzar un mínimo de 21 días de transmisión efectiva a lo largo del mes calendario.</div>
+                        <span class="req-card-reward">🎁 Bonificación +1.5%</span>
+                    </div>
+                </div>
+                <!-- Requisito 3 -->
+                <div class="req-card">
+                    <div class="req-card-header">
+                        <div class="req-card-num">REQ 3</div>
+                        <div class="req-card-title">⭐ Club de Fans</div>
+                    </div>
+                    <div class="req-card-body">
+                        <div class="req-card-target">70+ miembros activos</div>
+                        <div class="req-card-sub">Mantener 70 o más miembros en tu club de fans durante todo el mes de manera sostenida.</div>
+                        <span class="req-card-reward">🎁 Bonificación +0.5%</span>
+                    </div>
+                </div>
+                <!-- Requisito 4 -->
+                <div class="req-card">
+                    <div class="req-card-header">
+                        <div class="req-card-num">REQ 4</div>
+                        <div class="req-card-title">💎 Diamantes</div>
+                    </div>
+                    <div class="req-card-body">
+                        <div class="req-card-target">80,000 💎 / mes</div>
+                        <div class="req-card-sub">Generar un mínimo de 80,000 diamantes en ingresos totales de regalos durante el mes.</div>
+                        <span class="req-card-reward">🎁 Bonificación +0.5%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 积累提示 -->
+            <div class="accumulate-box">
+                <div class="accumulate-icon">✨</div>
+                <div class="accumulate-text">
+                    <h4>¡Las bonificaciones son acumulables!</h4>
+                    <p>Cumpliendo los 4 requisitos en un mismo mes, tu comisión sube de <strong style="color:var(--cyan)">3%</strong> base hasta un máximo de <strong style="color:var(--gold)">5%</strong> total. Cada requisito completado suma y nunca resta durante el período del contrato.</p>
+                </div>
+            </div>
+        </div>
+        <!-- ★★★ 新增模块结束 ★★★ -->
+
+        <div class="section-line" style="margin-bottom:50px;"></div>
+
         <div class="detail-block">
             <div class="detail-block-title"><div class="icon">💎</div><h2><span>Bonificaciones</span> Adicionales</h2></div>
             <div class="highlight-box"><h3>💎 Bonificaciones Adicionales</h3><p>Además de las comisiones básicas, Tiger Shark establece mensualmente un fondo de bonificación por rendimiento adicional, distribuyendo recompensas en efectivo extra basadas en el rendimiento mensual, velocidad de crecimiento de seguidores y tasa de interacción del contenido.</p></div>
@@ -460,14 +1308,14 @@
         <div class="detail-block">
             <div class="detail-block-title"><div class="icon">❓</div><h2>Preguntas <span>Frecuentes</span></h2></div>
             <div class="info-grid">
-                <div class="info-card"><h4>🤔 Puedo firmar con cero seguidores?</h4><p>¡Por supuesto! Tiger Shark da la bienvenida a todos los creadores con potencial.</p></div>
-                <div class="info-card"><h4>📈 Con qué frecuencia se ajusta la comisión?</h4><p>A principios de cada mes, el sistema evalúa automáticamente. La tasa de comisión solo sube, nunca baja durante el período del contrato.</p></div>
-                <div class="info-card"><h4>🌍 Pueden unirse creadores internacionales?</h4><p>¡Absolutamente! Tiger Shark está abierto a creadores de todo el mundo, con soporte para liquidación en múltiples monedas.</p></div>
-                <div class="info-card"><h4>📝 Qué restricciones tiene el contrato?</h4><p>Los términos son flexibles y transparentes, sin cláusulas ocultas, protegiendo plenamente la libertad del creador.</p></div>
+                <div class="info-card"><h4>🤔 ¿Puedo firmar con cero seguidores?</h4><p>¡Por supuesto! Tiger Shark da la bienvenida a todos los creadores con potencial.</p></div>
+                <div class="info-card"><h4>📈 ¿Con qué frecuencia se ajusta la comisión?</h4><p>A principios de cada mes, el sistema evalúa automáticamente. La tasa de comisión solo sube, nunca baja durante el período del contrato.</p></div>
+                <div class="info-card"><h4>🌍 ¿Pueden unirse creadores internacionales?</h4><p>¡Absolutamente! Tiger Shark está abierto a creadores de todo el mundo, con soporte para liquidación en múltiples monedas.</p></div>
+                <div class="info-card"><h4>📝 ¿Qué restricciones tiene el contrato?</h4><p>Los términos son flexibles y transparentes, sin cláusulas ocultas, protegiendo plenamente la libertad del creador.</p></div>
             </div>
         </div>
     </div>
-    <div class="cta-section"><div class="cta-box"><h2>🦈 ¿Estás listo?</h2><p>Únete a Tiger Shark y comienza tu viaje de creación de altos ingresos.</p><a href="https://https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn hover-magnet">🚀 Únete Ahora</a></div></div>
+    <div class="cta-section"><div class="cta-box"><h2>🦈 ¿Estás listo?</h2><p>Únete a Tiger Shark y comienza tu viaje de creación de altos ingresos.</p><a href="https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn hover-magnet">🚀 Únete Ahora</a></div></div>
     <footer><br><img src="logo.png" alt="Tiger Shark"><br>© 2024 Tiger Shark Agency · All Rights Reserved<br><br>Profesional · Integridad · Éxito Mutuo</footer>
 </div>
 
@@ -504,14 +1352,14 @@
         <div class="detail-block">
             <div class="detail-block-title"><div class="icon green">❓</div><h2>Preguntas <span class="green">Frecuentes</span></h2></div>
             <div class="info-grid" style="grid-template-columns:repeat(2,1fr);">
-                <div class="info-card green-card"><h4>📝 Se puede rescindir anticipadamente?</h4><p>Ambas partes pueden solicitar la terminación anticipada bajo circunstancias razonables, sin vinculación forzosa.</p></div>
-                <div class="info-card green-card"><h4>⚖️ Cómo se manejan las disputas?</h4><p>El equipo legal intervendrá de inmediato para mediar, priorizando la resolución por negociación.</p></div>
-                <div class="info-card green-card"><h4>🔐 Mi cuenta me pertenece?</h4><p>El creador tiene plena propiedad sobre su cuenta. Al vencer el contrato, se devuelve íntegramente.</p></div>
-                <div class="info-card green-card"><h4>🛡️ Cómo se previene la deducción de ingresos?</h4><p>Todos los datos de ingresos son verificables en tiempo real con mecanismo de auditoría de terceros.</p></div>
+                <div class="info-card green-card"><h4>📝 ¿Se puede rescindir anticipadamente?</h4><p>Ambas partes pueden solicitar la terminación anticipada bajo circunstancias razonables, sin vinculación forzosa.</p></div>
+                <div class="info-card green-card"><h4>⚖️ ¿Cómo se manejan las disputas?</h4><p>El equipo legal intervendrá de inmediato para mediar, priorizando la resolución por negociación.</p></div>
+                <div class="info-card green-card"><h4>🔐 ¿Mi cuenta me pertenece?</h4><p>El creador tiene plena propiedad sobre su cuenta. Al vencer el contrato, se devuelve íntegramente.</p></div>
+                <div class="info-card green-card"><h4>🛡️ ¿Cómo se previene la deducción de ingresos?</h4><p>Todos los datos de ingresos son verificables en tiempo real con mecanismo de auditoría de terceros.</p></div>
             </div>
         </div>
     </div>
-    <div class="cta-section"><div class="cta-box green-cta"><h2>🛡️ Únete con confianza</h2><p>Tiger Shark se basa en la profesionalidad y la integridad.</p><a href="https://https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn green-btn hover-magnet">🚀 Únete Ahora</a></div></div>
+    <div class="cta-section"><div class="cta-box green-cta"><h2>🛡️ Únete con confianza</h2><p>Tiger Shark se basa en la profesionalidad y la integridad.</p><a href="https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn green-btn hover-magnet">🚀 Únete Ahora</a></div></div>
     <footer><br><img src="logo.png" alt="Tiger Shark"><br>© 2024 Tiger Shark Agency · All Rights Reserved<br><br>Profesional · Integridad · Éxito Mutuo</footer>
 </div>
 
@@ -530,10 +1378,10 @@
             <div class="detail-block-title"><div class="icon purple">👤</div><h2>Tarjeta del <span class="purple">Agente</span></h2></div>
             <div class="agent-profile-card">
                 <div class="agent-profile-avatar">
-                    <img src="agent-photo.jpg" alt="Mr.Chad" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                    <img src="agent-photo.jpg" alt="Mr.NEW" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
                     <span class="avatar-fallback" style="display:none;align-items:center;justify-content:center;font-size:3rem;">🦈</span>
                 </div>
-                <div class="agent-profile-name">Mr.Chad</div>
+                <div class="agent-profile-name">Mr.NEW</div>
                 <div class="agent-profile-role">CHIEF AGENT</div>
                 <p class="agent-profile-desc">Con 5 años de experiencia en la industria del streaming en vivo, ha incubado con éxito múltiples streamers con millones de seguidores.</p>
             </div>
@@ -543,11 +1391,11 @@
             <div class="detail-block-title"><div class="icon purple">📬</div><h2><span class="purple">Contacto</span></h2></div>
             <div class="agent-contact-list">
                 <div class="agent-contact-item"><div class="agent-contact-icon-box">📧</div><div class="agent-contact-info"><h4>CORREO EMPRESARIAL</h4><p>1817616408@qq.com</p></div></div>
-                <a href="https://www.tiktok.com/@chad.tigershark_" target="_blank" rel="noopener" class="agent-contact-item clickable-item"><div class="agent-contact-icon-box">🎵</div><div class="agent-contact-info"><h4>TIKTOK</h4><p>@chad.tigershark</p></div><span class="clickable-arrow">→</span></a>
+                <a href="https://www.tiktok.com/@chad.tigershark_" target="_blank" rel="noopener" class="agent-contact-item clickable-item"><div class="agent-contact-icon-box">🎵</div><div class="agent-contact-info"><h4>TIKTOK</h4><p>@chad.tigershark_</p></div><span class="clickable-arrow">→</span></a>
             </div>
         </div>
     </div>
-    <div class="cta-section"><div class="cta-box purple-cta"><h2>🦈 Encuéntrame en cualquier momento</h2><p>Tu agente exclusivo te acompaña en todo momento.</p><a href="https://https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn purple-btn hover-magnet">🚀 Únete Ahora</a></div></div>
+    <div class="cta-section"><div class="cta-box purple-cta"><h2>🦈 Encuéntrame en cualquier momento</h2><p>Tu agente exclusivo te acompaña en todo momento.</p><a href="https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn purple-btn hover-magnet">🚀 Únete Ahora</a></div></div>
     <footer><br><img src="logo.png" alt="Tiger Shark"><br>© 2024 Tiger Shark Agency · All Rights Reserved<br><br>Profesional · Integridad · Éxito Mutuo</footer>
 </div>
 
@@ -561,10 +1409,7 @@
         <p>Tiger Shark ha sido galardonada oficialmente por TikTok en múltiples competiciones globales,<br>consolidándose como la agencia líder en las ligas más prestigiosas del mundo</p>
     </div>
     <div class="section-line"></div>
-
     <div class="detail-section">
-
-        <!-- Estadísticas -->
         <div class="detail-block">
             <div class="detail-block-title"><div class="icon gold">📊</div><h2>Logros <span class="gold">en Cifras</span></h2></div>
             <div class="stats-bar">
@@ -573,66 +1418,341 @@
                 <div class="stat-item"><div class="stat-num">2022</div><div class="stat-label">AÑO DE FUNDACIÓN</div></div>
             </div>
         </div>
-
-        <!-- 简介 -->
         <div class="awards-intro">
             <p>🏅 Desde su fundación, <strong>Tiger Shark</strong> ha participado y ganado en los torneos más prestigiosos organizados por TikTok, incluyendo el <strong>LIVE FEST</strong> y el <strong>Community FEST</strong>. Estos premios físicos son el testimonio oficial de nuestra posición de liderazgo en la industria global del streaming en vivo.</p>
         </div>
-
-        <!-- 奖杯图片网格 -->
         <div class="detail-block">
             <div class="detail-block-title"><div class="icon gold">🥇</div><h2>Galería de <span class="gold">Premios</span></h2></div>
             <div class="awards-grid">
-
-                <!-- 奖杯 1：LIVE FEST 2024 · TigerShark_FR · Top 1 -->
                 <div class="award-card" onclick="openLightbox(0)">
                     <img class="award-card-img" src="award1.jpg" alt="LIVE FEST 2024 Top 1 FR">
-                    <div class="award-card-body">
-                        <div class="award-badge">🥇 TOP 1</div>
-                        <h3>TikTok LIVE FEST 2024</h3>
-                        <p>TigerShark_FR · Ligue Or FR<br>Primer lugar en la Liga de Oro de Francia</p>
-                    </div>
+                    <div class="award-card-body"><div class="award-badge">🥇 TOP 1</div><h3>TikTok LIVE FEST 2024</h3><p>TigerShark_FR · Ligue Or FR<br>Primer lugar en la Liga de Oro de Francia</p></div>
                 </div>
-
-                <!-- 奖杯 2：Community FEST 2024 · Top 4 · Diamond -->
                 <div class="award-card" onclick="openLightbox(1)">
                     <img class="award-card-img" src="award2.jpg" alt="Community FEST 2024 Top 4 Diamond">
-                    <div class="award-card-body">
-                        <div class="award-badge">💎 TOP 4</div>
-                        <h3>TikTok Community FEST 2024</h3>
-                        <p>Tiger Shark · EECCA Diamond Track<br>Top 4 en la pista Diamante EECCA</p>
-                    </div>
+                    <div class="award-card-body"><div class="award-badge">💎 TOP 4</div><h3>TikTok Community FEST 2024</h3><p>Tiger Shark · EECCA Diamond Track<br>Top 4 en la pista Diamante EECCA</p></div>
                 </div>
-
-                <!-- 奖杯 3：LIVE FEST 25 · 2nd · CCA Diamond -->
                 <div class="award-card" onclick="openLightbox(2)">
                     <img class="award-card-img" src="award3.jpg" alt="LIVE FEST 25 2nd Place CCA">
-                    <div class="award-card-body">
-                        <div class="award-badge">🥈 2° LUGAR</div>
-                        <h3>TikTok LIVE FEST 25</h3>
-                        <p>Tiger Shark_CCA · Nivel Diamante<br>Segundo lugar en la región CCA</p>
-                    </div>
+                    <div class="award-card-body"><div class="award-badge">🥈 2° LUGAR</div><h3>TikTok LIVE FEST 25</h3><p>Tiger Shark_CCA · Nivel Diamante<br>Segundo lugar en la región CCA</p></div>
                 </div>
-
-                <!-- 奖杯 4：LIVE FEST 2024 · Top 1 · EECCA Super League -->
                 <div class="award-card" onclick="openLightbox(3)">
                     <img class="award-card-img" src="award4.jpg" alt="LIVE FEST 2024 Top 1 EECCA Super League">
-                    <div class="award-card-body">
-                        <div class="award-badge">🏆 TOP 1</div>
-                        <h3>TikTok LIVE FEST 2024</h3>
-                        <p>Tiger Shark · EECCA Super League<br>¡Campeones de la Súper Liga EECCA!</p>
+                    <div class="award-card-body"><div class="award-badge">🏆 TOP 1</div><h3>TikTok LIVE FEST 2024</h3><p>Tiger Shark · EECCA Super League<br>¡Campeones de la Súper Liga EECCA!</p></div>
+                </div>
+                <div class="award-card" onclick="openLightbox(4)">
+                    <img class="award-card-img" src="award5.jpg" alt="Community FEST Award">
+                    <div class="award-card-body"><div class="award-badge">🎖️ OFICIAL</div><h3>TikTok Community FEST</h3><p>Tiger Shark · Creator Network Tournament<br>Premio oficial de reconocimiento de la comunidad</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cta-section">
+        <div class="cta-box gold-cta">
+            <h2>🏆 Únete al equipo campeón</h2>
+            <p>Tiger Shark lidera la industria global del streaming en vivo.<br>Forma parte de la agencia más premiada por TikTok.</p>
+            <a href=https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn gold-btn hover-magnet">🚀 Únete Ahora</a>
+        </div>
+    </div>
+    <footer><br><img src="logo.png" alt="Tiger Shark"><br>© 2024 Tiger Shark Agency · All Rights Reserved<br><br>Profesional · Integridad · Éxito Mutuo</footer>
+</div>
+<!-- ════════════════════════════════════════ -->
+<!-- ════    Subpágina: Sobre Nosotros   ════ -->
+<!-- ════════════════════════════════════════ -->
+<div id="about-page">
+    <div class="detail-hero">
+        <div class="detail-hero-icon">🦈</div>
+        <h1 class="cyan-title">Sobre Tiger Shark</h1>
+        <p>Agencia de gestión de primer nivel · Fundada en 2022<br>
+           Descubrimos, cultivamos y promocionamos talentos creativos de calidad</p>
+    </div>
+    <div class="section-line"></div>
+    <div class="detail-section">
+
+        <!-- 宣传视频 -->
+        <div class="detail-block">
+            <div class="detail-block-title">
+                <div class="icon" style="background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(0,100,120,0.1));border:1px solid rgba(0,229,255,0.35);">🎬</div>
+                <h2>Video <span style="color:var(--cyan)">Oficial</span></h2>
+            </div>
+            <div class="about-video-wrap">
+                <div class="about-video-inner">
+                    <div class="video-label">
+                        <span class="video-label-dot"></span>
+                        TIGER SHARK · OFFICIAL VIDEO
+                    </div>
+                    <video id="about-video" autoplay muted controls playsinline preload="auto" class="about-video">
+    <source src="videos/TK_web.mp4" type="video/mp4">
+    Tu navegador no soporta la reproducción de video.
+</video>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-line" style="margin-bottom:50px;"></div>
+
+        <!-- 机构介绍 -->
+        <div class="detail-block">
+            <div class="detail-block-title">
+                <div class="icon" style="background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(0,100,120,0.1));border:1px solid rgba(0,229,255,0.35);">🦈</div>
+                <h2>¿Quiénes <span style="color:var(--cyan)">Somos?</span></h2>
+            </div>
+            <div class="info-grid" style="grid-template-columns:repeat(2,1fr);">
+                <div class="info-card">
+                    <h4>🏢 Sobre la Agencia</h4>
+                    <p>Tiger Shark es una agencia de gestión de primer nivel fundada en 2022, especializada en la formación y operación de creadores de contenido. Con amplia experiencia en la industria y un equipo profesional, nos dedicamos a descubrir, cultivar y promocionar talentos creativos de calidad.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎯 Nuestra Misión</h4>
+                    <p>Con operaciones profesionales como núcleo, diseñamos estrategias de desarrollo personalizadas para cada creador, maximizando la monetización del tráfico. Creemos que toda persona con talento merece ser vista, y Tiger Shark será tu punto de despegue.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🌍 Alcance Global</h4>
+                    <ul>
+                        <li>Presencia activa en múltiples regiones del mundo</li>
+                        <li>Soporte multilingüe para creadores internacionales</li>
+                        <li>Red de colaboración con las principales plataformas</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>💡 Nuestros Valores</h4>
+                    <ul>
+                        <li>Profesionalidad en cada paso del proceso</li>
+                        <li>Integridad y transparencia total con creadores</li>
+                        <li>Éxito mutuo como filosofía de trabajo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-line" style="margin-bottom:50px;"></div>
+
+        <!-- 数据 -->
+        <div class="detail-block">
+            <div class="detail-block-title">
+                <div class="icon" style="background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(0,100,120,0.1));border:1px solid rgba(0,229,255,0.35);">📊</div>
+                <h2>Tiger Shark <span style="color:var(--cyan)">en Cifras</span></h2>
+            </div>
+            <div class="stats-bar" style="max-width:100%;grid-template-columns:repeat(4,1fr);">
+                <div class="stat-item" style="border-color:rgba(0,229,255,0.2);">
+                    <div class="stat-num" style="color:var(--cyan);">2022</div>
+                    <div class="stat-label">AÑO FUNDACIÓN</div>
+                </div>
+                <div class="stat-item" style="border-color:rgba(0,229,255,0.2);">
+                    <div class="stat-num" style="color:var(--cyan);">5+</div>
+                    <div class="stat-label">PREMIOS OFICIALES</div>
+                </div>
+                <div class="stat-item" style="border-color:rgba(0,229,255,0.2);">
+                    <div class="stat-num" style="color:var(--cyan);">Top 1</div>
+                    <div class="stat-label">EECCA SUPER LEAGUE</div>
+                </div>
+                <div class="stat-item" style="border-color:rgba(0,229,255,0.2);">
+                    <div class="stat-num" style="color:var(--cyan);">9+</div>
+                    <div class="stat-label">AÑOS EXPERIENCIA</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="cta-section">
+        <div class="cta-box">
+            <h2>🦈 Forma parte de Tiger Shark</h2>
+            <p>Únete a la familia y comienza tu camino hacia el éxito.</p>
+            <a href="https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn hover-magnet">🚀 Únete Ahora</a>
+        </div>
+    </div>
+    <footer><br><img src="logo.png" alt="Tiger Shark"><br>© 2024 Tiger Shark Agency · All Rights Reserved<br><br>Profesional · Integridad · Éxito Mutuo</footer>
+</div>
+<!-- ════════════════════════════════════════ -->
+<!-- ════    开屏弹窗 Popup Modal         ════ -->
+<!-- ════════════════════════════════════════ -->
+<div id="popup-overlay">
+    <div id="popup-box">
+        <button id="popup-close" onclick="closePopup()" aria-label="Cerrar">✕</button>
+        <div class="popup-badge">🎉 ACTIVIDAD SEMANAL</div>
+        <h2 class="popup-title">Actividad de <span>Agencia</span></h2>
+        <p class="popup-desc">¡Nueva actividad disponible esta semana!<br>Gana recompensas de diamantes por completar objetivos</p>
+
+        <!-- 预览表 —— 每周同步更新此处文字 -->
+        <!-- ✏️ EDITAR SEMANALMENTE: actualiza los datos del resumen aquí -->
+        <div class="popup-preview">
+            <div class="popup-preview-title">RESUMEN DE RECOMPENSAS</div>
+            <div class="popup-preview-row">
+                <span class="pr-left">5 días · 2W 💎</span>
+                <span class="pr-right">+500 💵</span>
+            </div>
+            <div class="popup-preview-row">
+                <span class="pr-left">7 días · 12W 💎</span>
+                <span class="pr-right">+5000 💵</span>
+            </div>
+        </div>
+
+        <div class="popup-btn-wrap">
+            <button class="popup-go-btn" onclick="closePopup(); showActivityPage();">
+                🏆 Ver Actividad Completa
+            </button>
+            <button class="popup-skip-btn" onclick="closePopup()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- ════    子页面: 代理机构活动          ════ -->
+<!-- ════════════════════════════════════════ -->
+<div id="activity-page">
+    <div class="detail-hero">
+        <div class="detail-hero-icon">🏆</div>
+        <h1 class="gold-title">Actividad de Agencia</h1>
+        <p>Completa los objetivos semanales y desbloquea<br>recompensas en efectivo exclusivas para miembros</p>
+    </div>
+    <div class="section-line"></div>
+
+    <div class="detail-section">
+
+        <!-- ── 有效期横幅 ── -->
+        <!-- ✏️ EDITAR SEMANALMENTE: cambia las fechas de vigencia -->
+        <div class="activity-validity-bar">
+            <span class="validity-dot"></span>
+            <span class="validity-label">VIGENCIA:</span>
+            <span>Semana del &nbsp;<strong id="activity-week-text">16 Marzo – 22 Marzo 2026</strong></span>
+            <!-- ✏️ Cambia el texto de fecha arriba cada semana -->
+        </div>
+
+        <!-- ════ MARCO 1: Tabla de Recompensas ════ -->
+        <div class="activity-reward-frame">
+            <div class="activity-frame-header">
+                <div class="activity-frame-icon">💎</div>
+                <div>
+                    <h3>OBJETIVOS Y RECOMPENSAS</h3>
+                    <p>Cumple días de transmisión + diamantes → recibe bono en efectivo</p>
+                </div>
+            </div>
+
+            <div class="reward-header-row">
+                <span>Días · Requisito</span>
+                <span>💎 Diamantes</span>
+                <span>🎁 Recompensa</span>
+            </div>
+
+            <div class="reward-table">
+
+                <!-- ✏️ EDITAR SEMANALMENTE: modifica los valores de cada fila -->
+                <!-- Fila 1 -->
+                <div class="reward-row">
+                    <div>
+                        <div class="reward-col-label">NIVEL 1</div>
+                        <div class="reward-days">5 días <em>básico</em></div>
+                    </div>
+                    <div class="reward-diamonds">
+                        <span class="diam-icon">💎 </span>2W
+                    </div>
+                    <div class="reward-amount-wrap">
+                        <div class="reward-amount">500</div>
+                        <div class="reward-unit">diamante</div>
                     </div>
                 </div>
 
-                <!-- 奖杯 5：Community FEST · 紫盒 -->
-                <div class="award-card" onclick="openLightbox(4)">
-                    <img class="award-card-img" src="award5.jpg" alt="Community FEST Award">
-                    <div class="award-card-body">
-                        <div class="award-badge">🎖️ OFICIAL</div>
-                        <h3>TikTok Community FEST</h3>
-                        <p>Tiger Shark · Creator Network Tournament<br>Premio oficial de reconocimiento de la comunidad</p>
+                <!-- Fila 2 -->
+                <div class="reward-row">
+                    <div>
+                        <div class="reward-col-label">NIVEL 2</div>
+                        <div class="reward-days">5 días <em>básico</em></div>
+                    </div>
+                    <div class="reward-diamonds">
+                        <span class="diam-icon">💎 </span>4W
+                    </div>
+                    <div class="reward-amount-wrap">
+                        <div class="reward-amount">1000</div>
+                        <div class="reward-unit">diamante</div>
                     </div>
                 </div>
+
+                <!-- Fila 3 -->
+                <div class="reward-row">
+                    <div>
+                        <div class="reward-col-label">NIVEL 3</div>
+                        <div class="reward-days">7 días <em>avanzado</em></div>
+                    </div>
+                    <div class="reward-diamonds">
+                        <span class="diam-icon">💎 </span>3W
+                    </div>
+                    <div class="reward-amount-wrap">
+                        <div class="reward-amount">1000</div>
+                        <div class="reward-unit">diamante</div>
+                    </div>
+                </div>
+
+                <!-- Fila 4 -->
+                <div class="reward-row">
+                    <div>
+                        <div class="reward-col-label">NIVEL 4</div>
+                        <div class="reward-days">7 días <em>avanzado</em></div>
+                    </div>
+                    <div class="reward-diamonds">
+                        <span class="diam-icon">💎 </span>6W
+                    </div>
+                    <div class="reward-amount-wrap">
+                        <div class="reward-amount">3000</div>
+                        <div class="reward-unit">diamante</div>
+                    </div>
+                </div>
+
+                <!-- Fila 5 -->
+                <div class="reward-row">
+                    <div>
+                        <div class="reward-col-label">NIVEL 5 ★</div>
+                        <div class="reward-days">7 días <em>élite</em></div>
+                    </div>
+                    <div class="reward-diamonds">
+                        <span class="diam-icon">💎 </span>12W
+                    </div>
+                    <div class="reward-amount-wrap">
+                        <div class="reward-amount">5000</div>
+                        <div class="reward-unit">diamante</div>
+                    </div>
+                </div>
+                <!-- ✏️ FIN ZONA EDITABLE - tabla de recompensas -->
+
+            </div>
+        </div>
+
+        <!-- ════ MARCO 2: Notas de la Actividad ════ -->
+        <div class="activity-notes-frame">
+            <div class="activity-notes-header">
+                <div class="activity-notes-icon">📋</div>
+                <div>
+                    <h3>TÉRMINOS Y CONDICIONES</h3>
+                    <p>Lee atentamente antes de participar</p>
+                </div>
+            </div>
+            <div class="activity-notes-body">
+
+                <!-- ✏️ EDITAR SEMANALMENTE: actualiza las notas según la actividad vigente -->
+
+                <div class="note-item">
+                    <div class="note-num">01</div>
+                    <div class="note-text">
+                        <strong>Período de actividad:</strong> Esta actividad aplica únicamente durante la semana indicada en la vigencia. Los resultados fuera del período no serán contabilizados.
+                    </div>
+                </div>
+
+                <div class="note-item">
+                    <div class="note-num">02</div>
+                    <div class="note-text">
+                        <strong>Cálculo de diamantes:</strong> Se contabilizan los diamantes de ingresos por regalos en transmisiones en vivo. Las recargas de cuenta propia no aplican. <strong>1W = 10,000 diamantes.</strong>
+                    </div>
+                </div>
+
+                <div class="note-item">
+                    <div class="note-num">03</div>
+                    <div class="note-text">
+                        <strong>Días válidos:</strong> Un "día de transmisión" se contabiliza cuando el creador transmite un mínimo de <strong>1 hora continua</strong> en el día calendario.
+                    </div>
+                </div>
+
+                
+
+                <!-- ✏️ FIN ZONA EDITABLE - notas de actividad -->
 
             </div>
         </div>
@@ -641,14 +1761,15 @@
 
     <div class="cta-section">
         <div class="cta-box gold-cta">
-            <h2>🏆 Únete al equipo campeón</h2>
-            <p>Tiger Shark lidera la industria global del streaming en vivo.<br>Forma parte de la agencia más premiada por TikTok.</p>
-            <a href="https://https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn gold-btn hover-magnet">🚀 Únete Ahora</a>
+            <h2>🚀 ¿Listo para el reto?</h2>
+            <p>Únete a Tiger Shark y comienza a ganar recompensas semanales.</p>
+            <a href="https://www.tiktok.com/t/ZSMFhpDEA/" target="_blank" rel="noopener" class="cta-btn gold-btn hover-magnet">
+                🦈 Únete Ahora
+            </a>
         </div>
     </div>
     <footer><br><img src="logo.png" alt="Tiger Shark"><br>© 2024 Tiger Shark Agency · All Rights Reserved<br><br>Profesional · Integridad · Éxito Mutuo</footer>
 </div>
-
 <!-- ════ 灯箱 Lightbox ════ -->
 <div id="lightbox">
     <span id="lightbox-close" onclick="closeLightbox()">✕</span>
@@ -659,6 +1780,33 @@
 </div>
 
 <script>
+/* ── 弹窗 Popup ── */
+function openPopup(){
+    document.getElementById('popup-overlay').classList.add('open');
+    document.body.style.overflow='hidden';
+}
+function closePopup(){
+    document.getElementById('popup-overlay').classList.remove('open');
+    document.body.style.overflow='';
+}
+// 页面加载后 0.8 秒自动弹出
+window.addEventListener('load', () => setTimeout(openPopup, 800));
+// 点击遮罩关闭
+document.getElementById('popup-overlay').addEventListener('click', function(e){
+    if(e.target === this) closePopup();
+});
+/* ── 活动页导航 ── */
+function showActivityPage(){
+    hideAll();
+    document.getElementById('nav-activity').style.display='flex';
+    const p = document.getElementById('activity-page');
+    p.classList.add('active','page-fade-in');
+    window.scrollTo(0,0);
+    setTimeout(()=>initActivityObserver(), 100);
+}
+function initActivityObserver(){
+    applyObserver('#activity-page .activity-reward-frame, #activity-page .activity-notes-frame, #activity-page .activity-validity-bar');
+}
 /* ── Cursor ── */
 const cursor = document.getElementById('custom-cursor');
 const trail  = document.getElementById('cursor-trail');
@@ -680,10 +1828,11 @@ document.querySelectorAll('a,button,.clickable,.clickable-item,.agent-card,.hove
 
 /* ── 页面切换 ── */
 function hideAll(){
-    document.querySelectorAll('nav').forEach(n=>n.style.display='none');
+     document.querySelectorAll('nav').forEach(n=>n.style.display='none');
     document.getElementById('main-page').classList.add('hidden');
-    document.querySelectorAll('#detail-page,#protect-page,#agent-page,#industry-page')
-        .forEach(el=>el.classList.remove('active','page-fade-in'));
+    document.querySelectorAll(
+        '#detail-page,#protect-page,#agent-page,#industry-page,#about-page,#activity-page'
+    ).forEach(el=>el.classList.remove('active','page-fade-in'));
 }
 function showMainPage(){
     hideAll();
@@ -712,14 +1861,24 @@ function showAgentPage(){
     setTimeout(()=>initAgentObserver(),100);
 }
 function showIndustryPage(){
-    hideAll(); document.getElementById('nav-industry').style.display='flex';
+    hideAll();
+    document.getElementById('nav-industry').style.display='flex';
     const p=document.getElementById('industry-page');
-    p.classList.add('active','page-fade-in'); window.scrollTo(0,0);
+    p.classList.add('active','page-fade-in');
+    window.scrollTo(0,0);
     setTimeout(()=>initIndustryObserver(),100);
+}
+function showAboutPage(){
+    hideAll();
+    document.getElementById('nav-about').style.display='flex';
+    const p=document.getElementById('about-page');
+    p.classList.add('active','page-fade-in');
+    window.scrollTo(0,0);
+    setTimeout(()=>initAboutObserver(),100);
 }
 function showJoinSuccess(){
     const el=document.getElementById('joinSuccess');
-    el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),5000);
+    if(el){ el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),5000); }
 }
 
 /* ── 灯箱 Lightbox ── */
@@ -731,34 +1890,12 @@ const lightboxData = [
     { src:'award5.jpg', caption:'TikTok Community FEST · Tiger Shark · Creator Network Tournament' },
 ];
 let currentLightbox = 0;
-function openLightbox(idx){
-    currentLightbox = idx;
-    updateLightbox();
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow='hidden';
-}
-function closeLightbox(){
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow='';
-}
-function changeLightbox(dir){
-    currentLightbox = (currentLightbox + dir + lightboxData.length) % lightboxData.length;
-    updateLightbox();
-}
-function updateLightbox(){
-    const d = lightboxData[currentLightbox];
-    document.getElementById('lightbox-img').src = d.src;
-    document.getElementById('lightbox-caption').textContent = d.caption;
-}
-document.getElementById('lightbox').addEventListener('click', e=>{
-    if(e.target === document.getElementById('lightbox')) closeLightbox();
-});
-document.addEventListener('keydown', e=>{
-    if(!document.getElementById('lightbox').classList.contains('open')) return;
-    if(e.key==='ArrowLeft')  changeLightbox(-1);
-    if(e.key==='ArrowRight') changeLightbox(1);
-    if(e.key==='Escape')     closeLightbox();
-});
+function openLightbox(idx){ currentLightbox=idx; updateLightbox(); document.getElementById('lightbox').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
+function changeLightbox(dir){ currentLightbox=(currentLightbox+dir+lightboxData.length)%lightboxData.length; updateLightbox(); }
+function updateLightbox(){ const d=lightboxData[currentLightbox]; document.getElementById('lightbox-img').src=d.src; document.getElementById('lightbox-caption').textContent=d.caption; }
+document.getElementById('lightbox').addEventListener('click',e=>{ if(e.target===document.getElementById('lightbox')) closeLightbox(); });
+document.addEventListener('keydown',e=>{ if(!document.getElementById('lightbox').classList.contains('open')) return; if(e.key==='ArrowLeft') changeLightbox(-1); if(e.key==='ArrowRight') changeLightbox(1); if(e.key==='Escape') closeLightbox(); });
 
 /* ── WebGL Aurora ── */
 const glCanvas = document.getElementById('glCanvas');
@@ -831,14 +1968,16 @@ function applyObserver(sel){
     });
 }
 applyObserver('#main-page .card,#main-page .benefit-item,#main-page .agent-card,#main-page .contact-item,#main-page .link-card');
-function initDetailObserver()  { applyObserver('#detail-page .info-card,#detail-page .highlight-box'); }
+function initDetailObserver(){
+    applyObserver('#detail-page .info-card,#detail-page .highlight-box,#detail-page .req-card,#detail-page .commission-compare-banner,#detail-page .commission-ladder,#detail-page .accumulate-box');
+}
 function initProtectObserver() { applyObserver('#protect-page .protect-item,#protect-page .info-card'); }
 function initAgentObserver()   { applyObserver('#agent-page .agent-profile-card,#agent-page .agent-contact-item'); }
 function initIndustryObserver(){ applyObserver('#industry-page .award-card,#industry-page .stat-item,#industry-page .awards-intro'); }
 
 /* ── 3D 倾斜 + 光追 ── */
 function initAdvanced3D(){
-    document.querySelectorAll('.card,.benefit-item,.agent-card,.info-card,.protect-item,.link-card,.contact-item,.agent-profile-card,.agent-contact-item,.award-card,.cta-box,.stat-item,.highlight-box').forEach(card=>{
+    document.querySelectorAll('.card,.benefit-item,.agent-card,.info-card,.protect-item,.link-card,.contact-item,.agent-profile-card,.agent-contact-item,.award-card,.cta-box,.stat-item,.highlight-box,.req-card,.commission-compare-banner,.accumulate-box,.about-video-inner').forEach(card=>{
         card.addEventListener('mousemove',e=>{
             const r=card.getBoundingClientRect();
             const x=e.clientX-r.left, y=e.clientY-r.top;
@@ -857,8 +1996,6 @@ function initAdvanced3D(){
 }
 setTimeout(initAdvanced3D,500);
 
-
-
 /* ── 隐藏导航 ── */
 let lastY=0;
 window.addEventListener('scroll',()=>{
@@ -867,6 +2004,35 @@ window.addEventListener('scroll',()=>{
     window.scrollY>150&&window.scrollY>lastY ? nav.classList.add('nav-hidden') : nav.classList.remove('nav-hidden');
     lastY=window.scrollY;
 });
+(function initVideoFix(){
+    const vid = document.getElementById('about-video');
+    if(!vid) return;
+    let stallTimer = null;
+    /* 卡住时记录时间点，300ms 后强制跳帧继续 */
+    vid.addEventListener('stalled', () => {
+        clearTimeout(stallTimer);
+        stallTimer = setTimeout(() => {
+            const t = vid.currentTime;
+            vid.load();
+            vid.addEventListener('canplay', () => {
+                vid.currentTime = t;
+                vid.play().catch(()=>{});
+            }, { once: true });
+        }, 1);
+    });
+    /* waiting 超过 2 秒视为卡死，尝试微跳帧解锁 */
+    let waitTimer = null;
+    vid.addEventListener('waiting', () => {
+        waitTimer = setTimeout(() => {
+            if(vid.paused) return;
+            vid.currentTime += 0.01;
+        }, 2000);
+    });
+    vid.addEventListener('playing', () => {
+        clearTimeout(stallTimer);
+        clearTimeout(waitTimer);
+    });
+})();
 </script>
 </body>
 </html>

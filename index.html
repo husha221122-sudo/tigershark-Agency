@@ -1913,7 +1913,8 @@ function showActivityPage(){
     hideAll();
     document.getElementById('nav-activity').style.display='flex';
     const p = document.getElementById('activity-page');
-    p.classList.add('active','page-fade-in');
+    p.style.display='block';
+    p.classList.add('page-fade-in');
     window.scrollTo(0,0);
     setTimeout(()=>initActivityObserver(), 100);
 }

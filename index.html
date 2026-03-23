@@ -1505,7 +1505,7 @@
                         <span class="video-label-dot"></span>
                         TIGER SHARK · OFFICIAL VIDEO
                     </div>
-                    <video id="about-video" autoplay muted controls playsinline preload="auto" class="about-video">
+                    <video id="about-video" muted controls playsinline preload="auto" class="about-video">
     <source src="videos/TK_web.mp4" type="video/mp4">
     Tu navegador no soporta la reproducción de video.
 </video>
@@ -1824,7 +1824,7 @@ function showActivityPage(){
     hideAll();
     document.getElementById('nav-activity').style.display='flex';
     const p = document.getElementById('activity-page');
-    
+    p.style.display='block';
     p.classList.add('page-fade-in');
     window.scrollTo(0,0);
     setTimeout(()=>initActivityObserver(), 100);

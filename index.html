@@ -2090,7 +2090,6 @@ function initIndustryObserver(){ applyObserver('#industry-page .award-card,#indu
 
 /* ── 3D 倾斜 + 光追 ── */
 function initAdvanced3D(){
-if(isMobile) return;
     document.querySelectorAll('.card,.benefit-item,.agent-card,.info-card,.protect-item,.link-card,.contact-item,.agent-profile-card,.agent-contact-item,.award-card,.cta-box,.stat-item,.highlight-box,.req-card,.commission-compare-banner,.accumulate-box,.about-video-inner').forEach(card=>{
         card.addEventListener('mousemove',e=>{
             const r=card.getBoundingClientRect();

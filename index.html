@@ -2009,9 +2009,9 @@ function changeLightbox(dir){ currentLightbox=(currentLightbox+dir+lightboxData.
 function updateLightbox(){ const d=lightboxData[currentLightbox]; document.getElementById('lightbox-img').src=d.src; document.getElementById('lightbox-caption').textContent=d.caption; }
 document.getElementById('lightbox').addEventListener('click',e=>{ if(e.target===document.getElementById('lightbox')) closeLightbox(); });
 document.addEventListener('keydown',e=>{ if(!document.getElementById('lightbox').classList.contains('open')) return; if(e.key==='ArrowLeft') changeLightbox(-1); if(e.key==='ArrowRight') changeLightbox(1); if(e.key==='Escape') closeLightbox(); });
-const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
 /* ── WebGL Aurora ── */
-if(!isMobile){ const glCanvas = document.getElementById('glCanvas');
+const glCanvas = document.getElementById('glCanvas');
 const gl = glCanvas.getContext('webgl') || glCanvas.getContext('experimental-webgl');
 if(gl){
     const vs=`attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
@@ -2060,7 +2060,6 @@ if(gl){
         gl.drawArrays(gl.TRIANGLES,0,6);
         requestAnimationFrame(render);
     })(0);
-}
 }
 /* ── 入场观察器 ── */
 function applyObserver(sel){

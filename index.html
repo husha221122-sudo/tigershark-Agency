@@ -1814,7 +1814,7 @@ function closePopup(){
     document.body.style.overflow='';
 }
 // 页面加载后 0.8 秒自动弹出
-window.addEventListener('load', () => setTimeout(openPopup, 800));
+
 // 点击遮罩关闭
 document.getElementById('popup-overlay').addEventListener('click', function(e){
     if(e.target === this) closePopup();
@@ -1853,11 +1853,11 @@ document.querySelectorAll('a,button,.clickable,.clickable-item,.agent-card,.hove
 
 /* ── 页面切换 ── */
 function hideAll(){
-     document.querySelectorAll('nav').forEach(n=>n.style.display='none');
+    document.querySelectorAll('nav').forEach(n=>n.style.display='none');
     document.getElementById('main-page').classList.add('hidden');
     document.querySelectorAll(
         '#detail-page,#protect-page,#agent-page,#industry-page,#about-page,#activity-page'
-    ).forEach(el=>el.classList.remove('active','page-fade-in'));
+    ).forEach(el=>{ el.classList.remove('active','page-fade-in'); el.style.display=''; });
 }
 function showMainPage(){
     hideAll();

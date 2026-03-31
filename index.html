@@ -1945,10 +1945,13 @@ document.addEventListener('keydown',e=>{ if(!document.getElementById('lightbox')
 
 /* ── WebGL Aurora ── */
 const glCanvas = document.getElementById('glCanvas');
-const gl = glCanvas.getContext('webgl') || glCanvas.getContext('experimental-webgl');
+const gl = glCanvas.getContext('webgl') || glCanvas.getContext('experimental-webgl') || glCanvas.getContext('webgl2');
+// 强制设置画布尺寸（安卓必须）
+glCanvas.width = window.innerWidth;
+glCanvas.height = window.innerHeight;
 if(gl){
     const vs=`attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
- const fs=`
+    const fs=`
 precision mediump float;
 uniform vec2 R;
 uniform float T;
@@ -1998,7 +2001,6 @@ void main(){
     gl_FragColor=vec4(col,1.0);
 }
 `;
-    `;
     function mkS(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}
     const prog=gl.createProgram();
     gl.attachShader(prog,mkS(gl.VERTEX_SHADER,vs));
@@ -2009,15 +2011,20 @@ void main(){
     const aLoc=gl.getAttribLocation(prog,'a');
     gl.enableVertexAttribArray(aLoc); gl.vertexAttribPointer(aLoc,2,gl.FLOAT,false,0,0);
     const tLoc=gl.getUniformLocation(prog,'T'), rLoc=gl.getUniformLocation(prog,'R');
-    (function render(ms){
-        if(glCanvas.width!==innerWidth||glCanvas.height!==innerHeight){
-            glCanvas.width=innerWidth; glCanvas.height=innerHeight;
-            gl.viewport(0,0,gl.drawingBufferWidth,gl.drawingBufferHeight);
-        }
-        gl.uniform1f(tLoc,ms*.001); gl.uniform2f(rLoc,glCanvas.width,glCanvas.height);
-        gl.drawArrays(gl.TRIANGLES,0,6);
-        requestAnimationFrame(render);
-    })(0);
+   (function render(ms){
+    // 强制更新尺寸（安卓兼容性）
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    if(glCanvas.width !== w || glCanvas.height !== h){
+        glCanvas.width = w;
+        glCanvas.height = h;
+        gl.viewport(0, 0, w, h); // 直接用真实尺寸，避免drawingBufferWidth兼容问题
+    }
+    gl.uniform1f(tLoc, ms * 0.001);
+    gl.uniform2f(rLoc, w, h); // 直接传真实尺寸
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    requestAnimationFrame(render);
+})(0);
 }
 /* ── 入场观察器 ── */
 function applyObserver(sel){

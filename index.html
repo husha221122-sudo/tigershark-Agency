@@ -252,15 +252,15 @@
         #cursor-trail { position:fixed;top:0;left:0;width:36px;height:36px;border:1px solid rgba(0,229,255,0.4);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s; }
         body.hovering #custom-cursor { width:0;height:0; }
         body.hovering #cursor-trail { width:60px;height:60px;background:rgba(0,229,255,0.1);border-color:var(--cyan); }
-#glCanvas{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-1;
-    display:block;
-    background:#000;
+#glCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #000;
+    display: block;
 }
         #main-page,#detail-page,#protect-page,#agent-page,#industry-page,#about-page { position:relative;z-index:1; }
 
@@ -1947,11 +1947,13 @@ document.addEventListener('keydown',e=>{ if(!document.getElementById('lightbox')
 const glCanvas = document.getElementById('glCanvas');
 const gl = glCanvas.getContext('webgl') || glCanvas.getContext('experimental-webgl') || glCanvas.getContext('webgl2');
 // 强制设置画布尺寸（安卓必须）
-glCanvas.width = window.innerWidth;
-glCanvas.height = window.innerHeight;
 if(gl){
-    const vs=`attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
-    const fs=`
+    glCanvas.width = window.innerWidth;
+    glCanvas.height = window.innerHeight;
+
+    const vs = ...
+    const fs = ...
+}
 precision mediump float;
 uniform vec2 R;
 uniform float T;
